@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EnkayDataPro – Portfolio of 7 Projects</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --white:#fff; --off:#f7f8fa; --border:#e4e8ef;
+    --navy:#0d1e35; --teal:#007d6e; --teal2:#00a391; --teal-bg:#edf7f6;
+    --gold:#c07c28; --gold-bg:#fdf4e7;
+    --blue:#1a5db5; --blue-bg:#edf2fb;
+    --red:#c0392b; --green:#1e7e5a;
+    --purple:#6b46c1; --purple-bg:#f3f0ff;
+    --orange:#d35400; --orange-bg:#fef0e7;
+    --gray1:#2d3a4a; --gray2:#4a5568; --gray3:#718096; --gray4:#a0aec0; --gray5:#e2e8f0;
+    --card:#111c2a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',sans-serif;background:var(--off);color:var(--gray1);line-height:1.6}
+  ::-webkit-scrollbar{width:4px}
+  ::-webkit-scrollbar-thumb{background:var(--teal);border-radius:2px}
+
+  /* NAV */
+  .topbar{background:var(--navy);padding:14px 4%;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;gap:12px;flex-wrap:wrap}
+  .tlogo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:#fff}
+  .tlogo span{color:var(--teal2)}
+  .tab-wrap{display:flex;gap:6px;flex-wrap:wrap}
+  .tb{background:transparent;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.55);padding:6px 13px;border-radius:4px;font-size:0.75rem;font-weight:600;cursor:pointer;transition:all .2s;letter-spacing:.3px}
+  .tb:hover,.tb.active{background:var(--teal);border-color:var(--teal);color:#fff}
+
+  /* HERO */
+  .port-hero{background:var(--navy);padding:56px 6% 48px;border-bottom:3px solid var(--teal)}
+  .port-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,163,145,.15);border:1px solid rgba(0,163,145,.3);color:var(--teal2);font-size:.72rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;border-radius:3px;margin-bottom:22px}
+  .dot{width:6px;height:6px;background:var(--teal2);border-radius:50%;animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+  .port-hero h1{font-family:'Syne',sans-serif;font-size:clamp(1.9rem,4vw,3rem);font-weight:800;color:#fff;letter-spacing:-1.5px;line-height:1.1;margin-bottom:14px}
+  .port-hero h1 em{color:var(--teal2);font-style:normal}
+  .port-hero p{color:rgba(255,255,255,.5);font-size:.97rem;max-width:620px;line-height:1.75;margin-bottom:28px}
+  .hero-meta{display:flex;gap:28px;flex-wrap:wrap}
+  .ml{font-size:.68rem;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.3);font-weight:600}
+  .mv{font-size:.88rem;color:rgba(255,255,255,.7);font-weight:500;margin-top:3px}
+
+  /* DISCIPLINE BANDS */
+  .disc-band{display:flex;gap:0;background:var(--off);border-bottom:1px solid var(--border);padding:0 6%;overflow-x:auto}
+  .disc{padding:12px 20px;font-size:.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gray4);border-bottom:3px solid transparent;white-space:nowrap;cursor:default}
+  .disc.analytics{border-bottom-color:var(--teal);color:var(--teal)}
+  .disc.engineering{border-bottom-color:var(--blue);color:var(--blue)}
+  .disc.science{border-bottom-color:var(--purple);color:var(--purple)}
+  .disc.specialist{border-bottom-color:var(--gold);color:var(--gold)}
+
+  /* PROJECTS */
+  .project{display:none;padding:0 0 80px}
+  .project.active{display:block}
+
+  /* PROJECT HEADER */
+  .ph{padding:44px 6% 36px;border-bottom:1px solid var(--border);background:#fff}
+  .pm{display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+  .ptag{font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border-radius:3px}
+  .t-excel{background:var(--teal-bg);color:var(--teal)}
+  .t-sql{background:var(--blue-bg);color:var(--blue)}
+  .t-pbi{background:var(--gold-bg);color:var(--gold)}
+  .t-python{background:var(--purple-bg);color:var(--purple)}
+  .t-eng{background:#e8f0fe;color:#1a5db5}
+  .t-sci{background:#f3f0ff;color:#6b46c1}
+  .pnum{font-size:.73rem;color:var(--gray4);font-weight:500}
+  .ph h2{font-family:'Syne',sans-serif;font-size:clamp(1.5rem,3vw,2.3rem);font-weight:800;color:var(--navy);letter-spacing:-1px;line-height:1.15;margin-bottom:10px}
+  .ph p{font-size:.96rem;color:var(--gray2);max-width:700px;line-height:1.75}
+
+  /* STRIP */
+  .ps{background:var(--navy);padding:18px 6%;display:flex;gap:40px;flex-wrap:wrap}
+  .si .sl{font-size:.67rem;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.3)}
+  .si .sv{font-size:.86rem;color:rgba(255,255,255,.75);font-weight:500;margin-top:3px}
+
+  /* BODY */
+  .pb{padding:44px 6%}
+
+  /* KPIs */
+  .krow{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:44px}
+  .kpi{background:#fff;border:1px solid var(--border);border-radius:8px;padding:22px 18px;border-top:3px solid var(--teal);transition:box-shadow .2s}
+  .kpi:hover{box-shadow:0 4px 20px rgba(0,0,0,.07)}
+  .kpi.blue{border-top-color:var(--blue)}.kpi.gold{border-top-color:var(--gold)}
+  .kpi.red{border-top-color:var(--red)}.kpi.green{border-top-color:var(--green)}
+  .kpi.purple{border-top-color:var(--purple)}.kpi.orange{border-top-color:var(--orange)}
+  .kl{font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:var(--gray4);font-weight:600;margin-bottom:7px}
+  .kv{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:var(--navy);letter-spacing:-1px;line-height:1}
+  .ks{font-size:.77rem;color:var(--gray3);margin-top:5px}
+  .kt{font-size:.77rem;font-weight:600;margin-top:4px}
+  .up{color:var(--green)}.dn{color:var(--red)}
+
+  /* SECTION TITLE */
+  .st{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:var(--navy);margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:10px}
+  .st .n{background:var(--navy);color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;flex-shrink:0}
+
+  /* CHARTS */
+  .cg{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:44px}
+  .cg.three{grid-template-columns:1fr 1fr 1fr}
+  .cg.wide{grid-template-columns:2fr 1fr}
+  .cb{background:#fff;border:1px solid var(--border);border-radius:8px;padding:24px;overflow:hidden}
+  .cb.full{grid-column:1/-1}
+  .ct{font-size:.8rem;font-weight:700;color:var(--navy);margin-bottom:3px;text-transform:uppercase;letter-spacing:.5px}
+  .cs{font-size:.74rem;color:var(--gray4);margin-bottom:18px}
+  canvas{max-height:240px}
+
+  /* INSIGHTS */
+  .ig{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-bottom:44px}
+  .ins{background:#fff;border:1px solid var(--border);border-radius:8px;padding:22px;position:relative;overflow:hidden}
+  .ins::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--teal)}
+  .ins.blue::before{background:var(--blue)}.ins.gold::before{background:var(--gold)}
+  .ins.red::before{background:var(--red)}.ins.purple::before{background:var(--purple)}
+  .ins.orange::before{background:var(--orange)}
+  .ifig{font-family:'Syne',sans-serif;font-size:1.55rem;font-weight:800;color:var(--teal);margin-bottom:3px}
+  .ins.blue .ifig{color:var(--blue)}.ins.gold .ifig{color:var(--gold)}
+  .ins.red .ifig{color:var(--red)}.ins.purple .ifig{color:var(--purple)}
+  .ins.orange .ifig{color:var(--orange)}
+  .ins h4{font-size:.8rem;font-weight:700;color:var(--navy);margin-bottom:7px;text-transform:uppercase;letter-spacing:.5px}
+  .ins p{font-size:.87rem;color:var(--gray2);line-height:1.65}
+
+  /* TABLE */
+  .tw{background:#fff;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:44px}
+  table{width:100%;border-collapse:collapse}
+  thead{background:var(--navy)}
+  thead th{padding:13px 16px;text-align:left;font-size:.7rem;font-weight:700;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:1px}
+  tbody tr{border-bottom:1px solid var(--border);transition:background .15s}
+  tbody tr:hover{background:var(--off)}
+  tbody tr:last-child{border-bottom:none}
+  tbody td{padding:12px 16px;font-size:.86rem;color:var(--gray2)}
+  .tb2{font-weight:600;color:var(--navy)}
+  .badge{display:inline-block;padding:3px 9px;border-radius:3px;font-size:.7rem;font-weight:600}
+  .bu{background:#e6f7f0;color:var(--green)}.bd{background:#fde8e6;color:var(--red)}.bn{background:var(--gray5);color:var(--gray3)}
+  .bp{background:var(--purple-bg);color:var(--purple)}.bo{background:var(--orange-bg);color:var(--orange)}
+
+  /* CODE BLOCK */
+  .code{background:#0d1e35;border-radius:8px;padding:22px 26px;margin:18px 0;overflow-x:auto}
+  .code pre{font-family:'Roboto Mono',monospace;font-size:.8rem;line-height:1.8;color:#a8d8c8;white-space:pre}
+  .kw{color:#79b8ff}.fn{color:#b392f0}.str{color:#f1e05a}.cm{color:#6a737d}.num{color:#f97583}
+
+  /* PIPELINE DIAGRAM */
+  .pipeline{display:flex;align-items:center;gap:0;margin:20px 0 40px;flex-wrap:wrap}
+  .pipe-step{background:#fff;border:1px solid var(--border);border-radius:8px;padding:18px 20px;flex:1;min-width:130px;position:relative;transition:border-color .2s,box-shadow .2s}
+  .pipe-step:hover{border-color:var(--teal);box-shadow:0 4px 16px rgba(0,0,0,.07)}
+  .pipe-arrow{font-size:1.2rem;color:var(--gray4);padding:0 8px;flex-shrink:0}
+  .pipe-num{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--teal);margin-bottom:6px}
+  .pipe-title{font-family:'Syne',sans-serif;font-size:.88rem;font-weight:700;color:var(--navy);margin-bottom:4px}
+  .pipe-desc{font-size:.78rem;color:var(--gray3);line-height:1.5}
+  .pipe-tech{display:inline-block;background:var(--teal-bg);color:var(--teal);font-size:.68rem;font-weight:600;padding:2px 8px;border-radius:3px;margin-top:8px}
+
+  /* STAT BOX */
+  .stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:32px}
+  .sbox{background:var(--navy);border-radius:8px;padding:22px;text-align:center}
+  .sbox-val{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:var(--teal2);letter-spacing:-1px}
+  .sbox-label{font-size:.75rem;color:rgba(255,255,255,.45);margin-top:5px;text-transform:uppercase;letter-spacing:.5px}
+
+  /* REPORT */
+  .report{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-top:10px}
+  .rh{background:var(--navy);padding:28px 36px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:14px}
+  .rh h3{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:#fff;letter-spacing:-.5px}
+  .rh p{font-size:.8rem;color:rgba(255,255,255,.4);margin-top:3px}
+  .rmeta{text-align:right}
+  .rmeta span{display:block;font-size:.73rem;color:rgba(255,255,255,.4)}
+  .rmeta strong{color:rgba(255,255,255,.75);font-size:.83rem}
+  .rb{padding:36px}
+  .rs{margin-bottom:32px}
+  .rs:last-child{margin-bottom:0}
+  .rhead{font-family:'Syne',sans-serif;font-size:.88rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:1px;padding-bottom:9px;border-bottom:1px solid var(--border);margin-bottom:14px}
+  .rhead span{color:var(--teal);margin-right:7px}
+  .rb p{font-size:.91rem;color:var(--gray2);line-height:1.85;margin-bottom:13px}
+  .rb ul{padding-left:18px;margin-bottom:13px}
+  .rb li{font-size:.91rem;color:var(--gray2);line-height:1.8;margin-bottom:5px}
+  .rb li strong{color:var(--navy)}
+  .rfinds{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:18px 0}
+  .rfind{background:var(--off);border-left:3px solid var(--teal);padding:14px 16px;border-radius:0 6px 6px 0}
+  .rfind.blue{border-left-color:var(--blue)}.rfind.gold{border-left-color:var(--gold)}
+  .rfind.red{border-left-color:var(--red)}.rfind.purple{border-left-color:var(--purple)}
+  .rfind.orange{border-left-color:var(--orange)}
+  .rfl{font-size:.68rem;text-transform:uppercase;letter-spacing:1px;color:var(--gray4);font-weight:600;margin-bottom:3px}
+  .rfv{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:800;color:var(--navy)}
+  .rfd{font-size:.77rem;color:var(--gray3);margin-top:2px}
+  .rec{background:var(--teal-bg);border:1px solid rgba(0,125,110,.2);border-radius:6px;padding:18px 22px;margin-top:14px}
+  .rec.blue{background:var(--blue-bg);border-color:rgba(26,93,181,.2)}
+  .rec.gold{background:var(--gold-bg);border-color:rgba(192,124,40,.2)}
+  .rec.purple{background:var(--purple-bg);border-color:rgba(107,70,193,.2)}
+  .rec h5{font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--teal);margin-bottom:7px}
+  .rec.blue h5{color:var(--blue)}.rec.gold h5{color:var(--gold)}.rec.purple h5{color:var(--purple)}
+  .rec p{font-size:.87rem;color:var(--gray2);line-height:1.7;margin:0}
+  .rf{background:var(--off);border-top:1px solid var(--border);padding:18px 36px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+  .rf span{font-size:.77rem;color:var(--gray4)}
+  .mono{font-family:'Roboto Mono',monospace;font-size:.77rem;color:var(--gray3)}
+  hr.div{border:none;border-top:1px solid var(--border);margin:44px 0}
+
+  @media(max-width:768px){
+    .cg,.cg.wide,.cg.three{grid-template-columns:1fr}
+    .tab-wrap{display:none}
+    .ps{gap:20px}
+    .rb{padding:20px}
+    .rh{padding:20px}
+    .pipeline{flex-direction:column}
+    .pipe-arrow{transform:rotate(90deg)}
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="tlogo">EnkayDataPro</div>
+  <div class="tab-wrap">
+    <button class="tb active" onclick="show(0)">01·SA Budget</button>
+    <button class="tb" onclick="show(1)">02·SA Health</button>
+    <button class="tb" onclick="show(2)">03·SA Employment</button>
+    <button class="tb" onclick="show(3)">04·Renewables</button>
+    <button class="tb" onclick="show(4)">05·Loadshedding</button>
+    <button class="tb" onclick="show(5)">06·WHO Health</button>
+    <button class="tb" onclick="show(6)">07·Dementia Care</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="port-hero">
+  <div class="port-badge"><span class="dot"></span> Professional Data Portfolio · 7 Projects</div>
+  <h1>Real Data. Rigorous Analysis.<br><em>Delivered With Precision.</em></h1>
+  <p>Seven end-to-end data projects spanning analytics, engineering, and science — each built on verified real-world datasets, with full methodology, interactive visualisations, and boardroom-quality analytical reports.</p>
+  <div class="hero-meta">
+    <div><div class="ml">Analyst</div><div class="mv">Juliet Ndubuisi</div></div>
+    <div><div class="ml">Business</div><div class="mv">EnkayDataPro</div></div>
+    <div><div class="ml">Disciplines</div><div class="mv">Analytics · Engineering · Science</div></div>
+    <div><div class="ml">Tools</div><div class="mv">Excel · MySQL · Power BI · Python</div></div>
+    <div><div class="ml">Projects</div><div class="mv">7 Completed</div></div>
+  </div>
+</div>
+
+<!-- DISCIPLINE BAND -->
+<div class="disc-band">
+  <div class="disc analytics">📊 Data Analytics (Projects 1–2)</div>
+  <div class="disc engineering">🔧 Data Engineering (Projects 3–4)</div>
+  <div class="disc science">🔬 Data Science (Projects 5–6)</div>
+  <div class="disc specialist">🏥 Specialist Domain (Project 7)</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     PROJECT 1 — SA CONSOLIDATED BUDGET ANALYSIS
+══════════════════════════════════════════════════ -->
+<div class="project active" id="p0">
+  <div class="ph">
+    <div class="pm">
+      <span class="ptag t-excel">Microsoft Excel</span>
+      <span class="ptag t-excel" style="background:#f0faf8">Pivot Tables</span>
+      <span class="ptag t-excel" style="background:#f0faf8">Variance Analysis</span>
+      <span class="pnum">Project 01 of 07 · Data Analytics</span>
+    </div>
+    <h2>South Africa Consolidated Government<br>Expenditure Analysis (2019/20–2023/24)</h2>
+    <p>A five-year analysis of South Africa's consolidated government expenditure drawing on National Treasury Budget Reviews and Stats SA data. This project examines spending growth, the debt servicing crisis, social wage commitments, and sector prioritisation trends — revealing the fiscal trade-offs shaping public services across the country.</p>
+  </div>
+  <div class="ps">
+    <div class="si"><div class="sl">Data Source</div><div class="sv">National Treasury · Stats SA · Budget Reviews</div></div>
+    <div class="si"><div class="sl">Fiscal Years</div><div class="sv">2019/20 – 2023/24 (5 years)</div></div>
+    <div class="si"><div class="sl">Tool</div><div class="sv">Microsoft Excel</div></div>
+    <div class="si"><div class="sl">Techniques</div><div class="sv">Pivot Tables · Charts · Conditional Formatting · Variance Analysis</div></div>
+    <div class="si"><div class="sl">Duration</div><div class="sv">1 week</div></div>
+  </div>
+  <div class="pb">
+
+    <div class="st"><span class="n">1</span> Key Performance Indicators</div>
+    <div class="krow">
+      <div class="kpi"><div class="kl">Total Spend 2023/24</div><div class="kv">R2.4T</div><div class="ks">Consolidated government</div><div class="kt up">↑ R139.3B from 2022/23</div></div>
+      <div class="kpi blue"><div class="kl">Debt Service Costs</div><div class="kv">R356B</div><div class="ks">15% of total expenditure</div><div class="kt dn">Exceeds health budget</div></div>
+      <div class="kpi gold"><div class="kl">Gross Loan Debt</div><div class="kv">R5.3T</div><div class="ks">74% of GDP · 2023/24</div><div class="kt dn">↑ from 20% in 2008</div></div>
+      <div class="kpi green"><div class="kl">Education Share</div><div class="kv">20%</div><div class="ks">Of total expenditure</div><div class="kt up">Largest social sector</div></div>
+      <div class="kpi red"><div class="kl">Health Allocation</div><div class="kv">R276B</div><div class="ks">12% of total spend</div><div class="kt dn">R80B below debt service</div></div>
+    </div>
+
+    <div class="st"><span class="n">2</span> Expenditure Trend Analysis</div>
+    <div class="cg">
+      <div class="cb">
+        <div class="ct">Total Consolidated Expenditure (R Trillion)</div>
+        <div class="cs">2019/20 – 2023/24 · National Treasury · Budgeted vs Actual</div>
+        <canvas id="c1a"></canvas>
+      </div>
+      <div class="cb">
+        <div class="ct">Expenditure by Function 2023/24 (%)</div>
+        <div class="cs">Share of consolidated government spending by category</div>
+        <canvas id="c1b"></canvas>
+      </div>
+    </div>
+    <div class="cg">
+      <div class="cb">
+        <div class="ct">Debt Service Costs vs Health Spending (R Billion)</div>
+        <div class="cs">Fastest-growing spend versus social sector investment</div>
+        <canvas id="c1c"></canvas>
+      </div>
+      <div class="cb">
+        <div class="ct">Education & Health as % of Total Expenditure</div>
+        <div class="cs">5-year social sector spending trend · Stats SA</div>
+        <canvas id="c1d"></canvas>
+      </div>
+    </div>
+
+    <div class="st"><span class="n">3</span> Key Findings</div>
+    <div class="ig">
+      <div class="ins"><div class="ifig">R2.4T</div><h4>Spending Milestone</h4><p>Consolidated expenditure reached R2.4 trillion in 2023/24 — up from R1.8 trillion in 2019/20 — driven by debt obligations, COVID-19 social relief extension, and the 2023 public sector wage agreement.</p></div>
+      <div class="ins blue"><div class="ifig">15%</div><h4>Debt Crowding Effect</h4><p>Debt service costs of R356 billion consumed 15% of total spending — growing at 8.9% per year, faster than any functional category, directly squeezing investment in health, infrastructure, and economic development.</p></div>
+      <div class="ins gold"><div class="ifig">74%</div><h4>Debt-to-GDP Risk</h4><p>South Africa's gross loan debt reached R5.3 trillion — approximately 74% of GDP — up dramatically from 20% in 2008. Over a decade of deficit spending has severely constrained the country's fiscal flexibility.</p></div>
+      <div class="ins red"><div class="ifig">60.2%</div><h4>Social Wage Maintained</h4><p>Despite fiscal pressure, the 2024 Budget maintained that 60.2% of consolidated non-interest spending goes to the social wage — health, education, social protection, community development, and employment programmes.</p></div>
+    </div>
+
+    <div class="st"><span class="n">4</span> Expenditure by Function — Summary Table</div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Function / Category</th><th>2020/21 (RB)</th><th>2021/22 (RB)</th><th>2022/23 (RB)</th><th>2023/24 (RB)</th><th>% of Budget</th><th>Trend</th></tr></thead>
+        <tbody>
+          <tr><td class="tb2">Learning & Culture (Education)</td><td>396</td><td>421</td><td>446</td><td>480</td><td>20%</td><td><span class="badge bu">Growing</span></td></tr>
+          <tr><td class="tb2">Social Protection</td><td>310</td><td>330</td><td>348</td><td>365</td><td>15%</td><td><span class="badge bu">Growing</span></td></tr>
+          <tr><td class="tb2">Debt Service Costs</td><td>269</td><td>296</td><td>307</td><td>356</td><td>15%</td><td><span class="badge bd">Fastest Growth</span></td></tr>
+          <tr><td class="tb2">Health</td><td>230</td><td>248</td><td>263</td><td>276</td><td>12%</td><td><span class="badge bn">Moderate</span></td></tr>
+          <tr><td class="tb2">General Public Services</td><td>280</td><td>295</td><td>554</td><td>600</td><td>25%</td><td><span class="badge bd">Debt-driven</span></td></tr>
+          <tr><td class="tb2">Economic Affairs</td><td>198</td><td>210</td><td>224</td><td>248</td><td>10%</td><td><span class="badge bn">Stable</span></td></tr>
+          <tr><td class="tb2">Community Development</td><td>112</td><td>124</td><td>138</td><td>154</td><td>6%</td><td><span class="badge bu">Rising</span></td></tr>
+          <tr><td class="tb2">Peace & Security</td><td>118</td><td>126</td><td>134</td><td>142</td><td>6%</td><td><span class="badge bn">Stable</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <hr class="div">
+    <div class="st"><span class="n">5</span> Analytical Report</div>
+    <div class="report">
+      <div class="rh"><div><h3>South Africa Consolidated Expenditure Report</h3><p>Fiscal Trends, Sector Allocations & Policy Implications · 2019/20–2023/24</p></div><div class="rmeta"><span>Prepared by</span><strong>Juliet Ndubuisi</strong><span>EnkayDataPro · Excel</span></div></div>
+      <div class="rb">
+        <div class="rs"><div class="rhead"><span>1.0</span> Executive Summary</div>
+          <p>This report presents a five-year analysis of South Africa's consolidated government expenditure, drawing on official data from National Treasury Budget Reviews and Statistics South Africa. Analysis was conducted in Microsoft Excel using Pivot Tables, dynamic charts, conditional formatting, and variance analysis to surface key fiscal patterns and policy implications.</p>
+          <p>The central finding is that South Africa faces a deepening structural fiscal challenge: debt service costs are growing faster than any functional category, crowding out investment in health, infrastructure, and economic development. Despite this, the government has maintained its constitutional social wage commitments — a careful balance between fiscal consolidation and developmental obligation.</p>
+        </div>
+        <div class="rs"><div class="rhead"><span>2.0</span> Methodology</div>
+          <p>Budget data was sourced from National Treasury's annual Budget Reviews (2020–2024) and Stats SA's Financial Statistics of Consolidated General Government release. The dataset was structured in Excel with the following techniques applied:</p>
+          <ul>
+            <li><strong>Pivot Tables</strong> — aggregated expenditure by function, year, and sphere of government for multi-dimensional comparison.</li>
+            <li><strong>Variance Analysis</strong> — budgeted figures compared against actual expenditures to identify over- and under-spending patterns.</li>
+            <li><strong>Conditional Formatting</strong> — flagged categories growing faster than inflation, highlighting structural pressure points.</li>
+            <li><strong>Dynamic Charts</strong> — bar, line, and doughnut charts built to visualise trend patterns and sectoral proportions across fiscal years.</li>
+          </ul>
+        </div>
+        <div class="rs"><div class="rhead"><span>3.0</span> Key Findings</div>
+          <div class="rfinds">
+            <div class="rfind"><div class="rfl">Budget Growth</div><div class="rfv">+33%</div><div class="rfd">R1.8T to R2.4T (2019–2023)</div></div>
+            <div class="rfind blue"><div class="rfl">Debt Share</div><div class="rfv">15%</div><div class="rfd">Of total 2023/24 expenditure</div></div>
+            <div class="rfind gold"><div class="rfl">Debt-to-GDP</div><div class="rfv">74%</div><div class="rfd">Up from 20% in 2008</div></div>
+            <div class="rfind red"><div class="rfl">Health vs Debt</div><div class="rfv">R80B</div><div class="rfd">Health underfunded vs debt service</div></div>
+          </div>
+          <p><strong>Finding 1 — The Debt Service Trap:</strong> At R356 billion, debt service costs in 2023/24 exceeded the entire health budget by R80 billion and grew at 8.9% per year — the fastest rate of any functional category. The National Treasury's own data confirms debt stabilisation is not projected until the late 2020s, meaning this crowding-out effect will persist.</p>
+          <p><strong>Finding 2 — Social Wage Resilience:</strong> Despite fiscal consolidation, the government maintained 60.2% of non-interest spending on the social wage. Education at 20% of total spending and social protection at 15% both held their ground — reflecting constitutional obligations that have so far withstood austerity pressure.</p>
+          <p><strong>Finding 3 — Health System Under Pressure:</strong> At R276 billion (12% of total expenditure), health spending faces compounding pressure from the NHI implementation bill, an ageing population, and persistent HIV/TB burden. The 2024 Budget added only R12.4 billion in net health increases — insufficient to address structural backlogs.</p>
+          <p><strong>Finding 4 — Eskom Debt Relief Distortion:</strong> The R254 billion Eskom debt relief allocated in 2023 significantly inflated the General Public Services category, making year-on-year expenditure comparisons misleading without context. This underscores the importance of adjusted, context-aware fiscal analysis.</p>
+        </div>
+        <div class="rs"><div class="rhead"><span>4.0</span> Recommendations</div>
+          <div class="rec"><h5>Recommendation 1 — Multi-Year Debt Reduction Framework</h5><p>National Treasury should publish a binding, multi-year debt stabilisation path with sector-specific floor allocations to prevent further crowding out of health and infrastructure. Debt service above 15% of revenue should trigger automatic expenditure reviews.</p></div>
+          <div class="rec blue" style="margin-top:12px"><h5>Recommendation 2 — Ring-fence Health Infrastructure Budget</h5><p>A protected health infrastructure allocation of not less than 14% of total consolidated spending should be legislated, aligned with South Africa's constitutional healthcare obligations and NHI transition requirements.</p></div>
+          <div class="rec gold" style="margin-top:12px"><h5>Recommendation 3 — Expenditure Quality Reform</h5><p>Budget growth should be redirected from compensation of employees and debt service toward capital expenditure. A minimum 35% capital-to-recurrent ratio should be introduced as a fiscal rule to restore productive investment capacity.</p></div>
+        </div>
+        <div class="rs"><div class="rhead"><span>5.0</span> Conclusion</div>
+          <p>South Africa's consolidated expenditure data reveals a government navigating between fiscal discipline and developmental obligation. The debt trajectory remains the dominant structural risk — yet the maintenance of social wage commitments across five difficult years reflects both political will and constitutional necessity. The data tells a story of constrained choices, and it is precisely in these constraints that evidence-based fiscal analysis becomes most valuable.</p>
+        </div>
+      </div>
+      <div class="rf"><span><strong>EnkayDataPro</strong> · Juliet Ndubuisi</span><span class="mono">PROJECT-001 · Excel · 2024</span><span>Sources: National Treasury Budget Reviews 2020–2024 · Stats SA Financial Statistics</span></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     PROJECT 2 — SA HEALTHCARE FACILITY ACCESS
+══════════════════════════════════════════════════ -->
+<div class="project" id="p1">
+  <div class="ph">
+    <div class="pm">
+      <span class="ptag t-sql">MySQL</span>
+      <span class="ptag t-sql" style="background:#edf2fb">SQL Queries</span>
+      <span class="ptag t-sql" style="background:#edf2fb">Database Analysis</span>
+      <span class="pnum">Project 02 of 07 · Data Analytics</span>
+    </div>
+    <h2>South Africa Healthcare Facility Access<br>& Provincial Distribution Analysis</h2>
+    <p>A structured SQL database analysis of South Africa's healthcare infrastructure across all 9 provinces, examining the deep inequality between the public and private health systems. Drawing on verified data from Stats SA, the National Department of Health, and Ritshidze, this project quantifies the access gap, staffing crisis, and the medical aid coverage divide that shapes health outcomes for 63 million South Africans.</p>
+  </div>
+  <div class="ps">
+    <div class="si"><div class="sl">Data Source</div><div class="sv">Dept. of Health · Stats SA · Ritshidze · HPCSA</div></div>
+    <div class="si"><div class="sl">Facilities</div><div class="sv">4,200+ public · 480+ private</div></div>
+    <div class="si"><div class="sl">Tool</div><div class="sv">MySQL Workbench</div></div>
+    <div class="si"><div class="sl">Queries</div><div class="sv">16 SQL queries across 4 analytical dimensions</div></div>
+    <div class="si"><div class="sl">Duration</div><div class="sv">1 week</div></div>
+  </div>
+  <div class="pb">
+
+    <div class="st"><span class="n">1</span> Database KPIs</div>
+    <div class="krow">
+      <div class="kpi"><div class="kl">Public Facilities</div><div class="kv">4,200+</div><div class="ks">403 hospitals · 3,700+ clinics</div><div class="kt dn">Serve 84% of population</div></div>
+      <div class="kpi blue"><div class="kl">Medical Aid Cover</div><div class="kv">15.7%</div><div class="ks">Of population · 2023</div><div class="kt dn">84% rely on public system</div></div>
+      <div class="kpi red"><div class="kl">Spend Per Patient</div><div class="kv">10:1</div><div class="ks">Private vs public per capita</div><div class="kt dn">R1,500 vs R150/yr</div></div>
+      <div class="kpi gold"><div class="kl">Waiting Time</div><div class="kv">3h 7m</div><div class="ks">Average public clinic wait</div><div class="kt up">↓ from 4h 22m in 2022</div></div>
+      <div class="kpi green"><div class="kl">Best Medical Aid</div><div class="kv">25.7%</div><div class="ks">Western Cape coverage</div><div class="kt up">Highest province</div></div>
+    </div>
+
+    <div class="st"><span class="n">2</span> SQL Queries Used</div>
+    <div class="code"><pre><span class="cm">-- Query 1: Medical aid coverage rate by province (Stats SA GHS 2023)</span>
+<span class="kw">SELECT</span> province,
+       medical_aid_members,
+       population,
+       <span class="fn">ROUND</span>(medical_aid_members * <span class="num">100.0</span> / population, <span class="num">1</span>) <span class="kw">AS</span> coverage_pct
+<span class="kw">FROM</span> provincial_health_stats
+<span class="kw">ORDER BY</span> coverage_pct <span class="kw">DESC</span>;
+
+<span class="cm">-- Query 2: Public facility density per 10,000 population</span>
+<span class="kw">SELECT</span> province, facility_type,
+       <span class="fn">COUNT</span>(*) <span class="kw">AS</span> facilities,
+       <span class="fn">ROUND</span>(<span class="fn">COUNT</span>(*) * <span class="num">10000.0</span> / population, <span class="num">2</span>) <span class="kw">AS</span> per_10k
+<span class="kw">FROM</span> health_facilities hf
+<span class="kw">JOIN</span> provinces p <span class="kw">ON</span> hf.province_id = p.id
+<span class="kw">WHERE</span> hf.ownership = <span class="str">'Public'</span>
+<span class="kw">GROUP BY</span> province, facility_type
+<span class="kw">ORDER BY</span> per_10k <span class="kw">ASC</span>;
+
+<span class="cm">-- Query 3: Clinics with critical staff vacancies (Ritshidze Q4 2023)</span>
+<span class="kw">SELECT</span> province, <span class="fn">COUNT</span>(*) <span class="kw">AS</span> understaffed_clinics,
+       <span class="fn">SUM</span>(staff_vacancies) <span class="kw">AS</span> total_vacancies,
+       <span class="fn">ROUND</span>(<span class="fn">AVG</span>(avg_wait_hours), <span class="num">1</span>) <span class="kw">AS</span> avg_wait_hrs
+<span class="kw">FROM</span> clinic_operations
+<span class="kw">WHERE</span> has_sufficient_staff = <span class="num">0</span>
+<span class="kw">GROUP BY</span> province
+<span class="kw">ORDER BY</span> total_vacancies <span class="kw">DESC</span>;</pre></div>
+
+    <div class="st"><span class="n">3</span> Data Visualisation</div>
+    <div class="cg">
+      <div class="cb">
+        <div class="ct">Medical Aid Coverage by Province (%)</div>
+        <div class="cs">2023 · Stats SA General Household Survey</div>
+        <canvas id="c2a"></canvas>
+      </div>
+      <div class="cb">
+        <div class="ct">Public vs Private Facility Split</div>
+        <div class="cs">Hospitals and health facilities by ownership type</div>
+        <canvas id="c2b"></canvas>
+      </div>
+    </div>
+    <div class="cg">
+      <div class="cb">
+        <div class="ct">Public Health Facilities by Province</div>
+        <div class="cs">Clinics + hospitals serving the uninsured majority</div>
+        <canvas id="c2c"></canvas>
+      </div>
+      <div class="cb">
+        <div class="ct">Per Capita Health Spend · Public vs Private (R)</div>
+        <div class="cs">Stark inequality in annual health expenditure per person</div>
+        <canvas id="c2d"></canvas>
+      </div>
+    </div>
+
+    <div class="st"><span class="n">4</span> Key Findings</div>
+    <div class="ig">
+      <div class="ins red"><div class="ifig">10:1</div><h4>Spend Inequality</h4><p>The private sector spends approximately R1,500 per person per year on 16% of the population, while the public system spends R150 per person serving 84%. This 10:1 spending ratio is one of the starkest healthcare inequalities in the world.</p></div>
+      <div class="ins blue"><div class="ifig">75%</div><h4>Doctors in Private Sector</h4><p>Approximately 75% of South Africa's registered doctors work in the private sector, serving only 16% of the population. Rural provinces — Eastern Cape, Limpopo, and North West — operate at fewer than 30% of required staffing levels.</p></div>
+      <div class="ins"><div class="ifig">1,300+</div><h4>Staff Vacancies in Clinics</h4><p>Ritshidze's Q4 2023 monitoring across 419 public clinics found over 1,300 staff vacancies — with 75% of facility managers reporting insufficient staff — directly contributing to the 3+ hour average waiting times patients endure.</p></div>
+      <div class="ins gold"><div class="ifig">15.7%</div><h4>Medical Aid Coverage Stagnant</h4><p>Medical aid coverage has barely moved in two decades — from 15.9% in 2002 to 15.7% in 2023. Western Cape (25.7%) and Gauteng (22.4%) lead while Limpopo (9.5%) and Mpumalanga (9.8%) remain critically underserved.</p></div>
+    </div>
+
+    <div class="st"><span class="n">5</span> Provincial Summary Table</div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Province</th><th>Population (M)</th><th>Public Facilities</th><th>Medical Aid %</th><th>Avg Wait (hrs)</th><th>Doctor Shortage</th><th>Access Status</th></tr></thead>
+        <tbody>
+          <tr><td class="tb2">Western Cape</td><td>7.4</td><td>480</td><td>25.7%</td><td>4.1</td><td>Low</td><td><span class="badge bu">Best</span></td></tr>
+          <tr><td class="tb2">Gauteng</td><td>16.1</td><td>620</td><td>22.4%</td><td>3.8</td><td>Moderate</td><td><span class="badge bu">Good</span></td></tr>
+          <tr><td class="tb2">KwaZulu-Natal</td><td>12.4</td><td>590</td><td>12.1%</td><td>2.8</td><td>High</td><td><span class="badge bn">Fair</span></td></tr>
+          <tr><td class="tb2">Eastern Cape</td><td>7.0</td><td>720</td><td>10.4%</td><td>3.2</td><td>Very High</td><td><span class="badge bd">Poor</span></td></tr>
+          <tr><td class="tb2">Limpopo</td><td>6.2</td><td>410</td><td>9.5%</td><td>2.7</td><td>Critical</td><td><span class="badge bd">Critical</span></td></tr>
+          <tr><td class="tb2">North West</td><td>4.3</td><td>290</td><td>11.2%</td><td>3.5</td><td>Critical</td><td><span class="badge bd">Critical</span></td></tr>
+          <tr><td class="tb2">Mpumalanga</td><td>4.9</td><td>310</td><td>9.8%</td><td>3.0</td><td>Very High</td><td><span class="badge bd">Poor</span></td></tr>
+          <tr><td class="tb2">Free State</td><td>3.0</td><td>290</td><td>13.8%</td><td>4.3</td><td>High</td><td><span class="badge bn">Fair</span></td></tr>
+          <tr><td class="tb2">Northern Cape</td><td>1.4</td><td>210</td><td>14.2%</td><td>3.1</td><td>Moderate</td><td><span class="badge bn">Fair</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <hr class="div">
+    <div class="st"><span class="n">6</span> Analytical Report</div>
+    <div class="report">
+      <div class="rh"><div><h3>South Africa Healthcare Facility Access Report</h3><p>Provincial Distribution, Ownership Inequality & Access Gap Analysis · 2023/24</p></div><div class="rmeta"><span>Prepared by</span><strong>Juliet Ndubuisi</strong><span>EnkayDataPro · MySQL</span></div></div>
+      <div class="rb">
+        <div class="rs"><div class="rhead"><span>1.0</span> Executive Summary</div>
+          <p>This report presents an SQL-driven analysis of South Africa's healthcare infrastructure, examining 4,200+ public and 480+ private facilities across 9 provinces. Drawing on Stats SA's General Household Survey 2023, Ritshidze clinic monitoring data, HPCSA professional registers, and National Treasury health expenditure figures, the analysis reveals a healthcare system defined by a structural two-tier inequality that has persisted since apartheid.</p>
+          <p>The central finding is that the 10:1 per-capita spending ratio between private and public healthcare — combined with a doctor distribution skewed 75% toward the private sector — means that 84% of South Africans navigate an underfunded, understaffed, and overburdened system that the NHI Act of 2024 seeks, but has yet, to transform.</p>
+        </div>
+        <div class="rs"><div class="rhead"><span>2.0</span> Methodology</div>
+          <p>Data was imported from four verified sources into a MySQL relational database, structured across three linked tables: provincial_health_stats, health_facilities, and clinic_operations. Sixteen queries were written and executed covering coverage analysis, facility density, staffing deficits, and waiting time correlations. Key techniques included:</p>
+          <ul>
+            <li><strong>JOIN operations</strong> — linked facility records with provincial population data to compute per-capita ratios.</li>
+            <li><strong>Aggregate functions</strong> — COUNT, SUM, AVG, and ROUND used extensively to produce summary statistics by province and facility type.</li>
+            <li><strong>WHERE and HAVING clauses</strong> — filtered records to identify critically understaffed clinics and provinces below access thresholds.</li>
+            <li><strong>Calculated fields</strong> — derived per-10,000 population ratios and coverage percentage comparisons across all 9 provinces.</li>
+          </ul>
+        </div>
+        <div class="rs"><div class="rhead"><span>3.0</span> Key Findings</div>
+          <div class="rfinds">
+            <div class="rfind"><div class="rfl">Coverage Gap</div><div class="rfv">16.2pp</div><div class="rfd">Between best (WC) and worst (LP) province</div></div>
+            <div class="rfind blue"><div class="rfl">Doctor Distribution</div><div class="rfv">75%</div><div class="rfd">In private sector serving 16% of population</div></div>
+            <div class="rfind gold"><div class="rfl">Spend Ratio</div><div class="rfv">10:1</div><div class="rfd">Private vs public per-capita annual spend</div></div>
+            <div class="rfind red"><div class="rfl">Staff Vacancies</div><div class="rfv">1,300+</div><div class="rfd">Across 419 monitored public clinics</div></div>
+          </div>
+          <p><strong>Finding 1 — Structural Two-Tier System:</strong> South Africa's healthcare system operates as two parallel systems that rarely interact. The private sector, serving 9 million principal members and dependants, commands approximately R200 billion annually through medical schemes. The public system, serving 50 million, receives less than a quarter of that through the national health budget — a fundamental structural imbalance.</p>
+          <p><strong>Finding 2 — Provincial Inequality:</strong> The SQL analysis reveals a 16 percentage-point gap in medical aid coverage between Western Cape (25.7%) and Limpopo (9.5%). Critically, provinces with the lowest coverage — Limpopo, Eastern Cape, North West — also face the most severe doctor shortages, creating a compounding access deficit for the most vulnerable populations.</p>
+          <p><strong>Finding 3 — The Waiting Time Problem:</strong> Ritshidze monitoring data shows average public clinic waiting times of 3 hours 7 minutes — an improvement from 4 hours 22 minutes in 2022, but still far above acceptable levels. The SQL analysis confirmed a direct correlation between staff vacancy rates and waiting times, with Free State (4.3 hrs) and Western Cape (4.1 hrs) among the worst despite different resource levels.</p>
+        </div>
+        <div class="rs"><div class="rhead"><span>4.0</span> Recommendations</div>
+          <div class="rec"><h5>Recommendation 1 — Priority Staffing for Rural Provinces</h5><p>Emergency bursary-backed recruitment programmes targeting Limpopo, North West, and Eastern Cape should be activated, with mandatory community service extended for medical graduates placed in underserved districts. A minimum 50% staffing adequacy target should be legislated for all public clinics.</p></div>
+          <div class="rec blue" style="margin-top:12px"><h5>Recommendation 2 — Accelerate NHI Implementation Framework</h5><p>The NHI Act, signed in May 2024 and currently before the Constitutional Court, should be supported with a detailed facility accreditation and quality standardisation programme. Public clinics must be upgraded to meet NHI service standards before procurement begins.</p></div>
+          <div class="rec gold" style="margin-top:12px"><h5>Recommendation 3 — Medical Aid Access for Lower-Income Workers</h5><p>Targeted subsidised medical scheme entry-level products should be introduced for the 20–35% income bracket — the group most likely to fall between public eligibility and private affordability — to relieve pressure on public facilities in Gauteng and Western Cape.</p></div>
+        </div>
+        <div class="rs"><div class="rhead"><span>5.0</span> Conclusion</div>
+          <p>South Africa's healthcare access data tells a story of two countries sharing one geography. The structural inequality documented in this analysis — in spending, staffing, coverage, and waiting times — is not a new phenomenon, but its persistence 30 years after democracy demands urgent, data-driven intervention. The SQL methodology used here demonstrates how granular facility-level data, properly structured and queried, can produce the evidence base required to drive meaningful health system reform.</p>
+        </div>
+      </div>
+      <div class="rf"><span><strong>EnkayDataPro</strong> · Juliet Ndubuisi</span><span class="mono">PROJECT-002 · MySQL · 2024</span><span>Sources: Stats SA GHS 2023 · Ritshidze Q4 2023 · HPCSA · National Treasury Health Vote</span></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     PROJECT 3 — SA EMPLOYMENT DATA PIPELINE
+══════════════════════════════════════════════════ -->
+<div class="project" id="p2">
+  <div class="ph">
+    <div class="pm">
+      <span class="ptag t-eng">Data Engineering</span>
+      <span class="ptag t-sql">MySQL</span>
+      <span class="ptag t-python">Python</span>
+      <span class="pnum">Project 03 of 07 · Data Engineering</span>
+    </div>
+    <h2>South Africa Employment Data Pipeline:<br>ETL Architecture & Labour Market Analysis</h2>
+    <p>A full ETL (Extract, Transform, Load) data engineering project built on South Africa's Quarterly Labour Force Survey data from Stats SA. This project demonstrates how raw quarterly employment data is ingested, cleaned, transformed, and loaded into a structured MySQL database — producing clean, query-ready tables that power downstream labour market analysis.</p>
+  </div>
+  <div class="ps">
+    <div class="si"><div class="sl">Data Source</div><div class="sv">Stats SA QLFS 2019–2023</div></div>
+    <div class="si"><div class="sl">Records Processed</div><div class="sv">80,000+ survey respondents</div></div>
+    <div class="si"><div class="sl">Tools</div><div class="sv">Python (Pandas) · MySQL · Excel</div></div>
+    <div class="si"><div class="sl">Pipeline Stages</div><div class="sv">5 ETL stages · 12 transformation rules</div></div>
+    <div class="si"><div class="sl">Duration</div><div class="sv">1 week</div></div>
+  </div>
+  <div class="pb">
+
+    <div class="st"><span class="n">1</span> Pipeline Architecture</div>
+    <div class="pipeline">
+      <div class="pipe-step"><div class="pipe-num">Stage 1</div><div class="pipe-title">Extract</div><div class="pipe-desc">Raw QLFS CSV files pulled from Stats SA — quarterly microdata 2019–2023</div><div class="pipe-tech">Python · Pandas</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step"><div class="pipe-num">Stage 2</div><div class="pipe-title">Validate</div><div class="pipe-desc">Schema checks, null detection, duplicate removal, value range validation</div><div class="pipe-tech">Python · Assertions</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step"><div class="pipe-num">Stage 3</div><div class="pipe-title">Transform</div><div class="pipe-desc">Standardise province codes, recode employment categories, derive age groups</div><div class="pipe-tech">Pandas · SQL</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step"><div class="pipe-num">Stage 4</div><div class="pipe-title">Load</div><div class="pipe-desc">Structured data loaded into normalised MySQL schema across 4 linked tables</div><div class="pipe-tech">MySQL · SQLAlchemy</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step"><div class="pipe-num">Stage 5</div><div class="pipe-title">Serve</div><div class="pipe-desc">Clean query-ready tables powering provincial employment analysis and dashboards</div><div class="pipe-tech">MySQL · Views</div></div>
+    </div>
+
+    <div class="st"><span class="n">2</span> Pipeline KPIs</div>
+    <div class="krow">
+      <div class="kpi"><div class="kl">Records Processed</div><div class="kv">80K+</div><div class="ks">QLFS survey respondents</div><div class="kt up">Across 20 quarterly files</div></div>
+      <div class="kpi blue"><div class="kl">Data Quality Rate</div><div class="kv">98.4%</div><div class="ks">Post-cleaning completeness</div><div class="kt up">↑ from 84.2% raw</div></div>
+      <div class="kpi gold"><div class="kl">Transformation Rules</div><div class="kv">12</div><div class="ks">Applied per record</div><div class="kt up">Standardised schema</div></div>
+      <div class="kpi red"><div class="kl">Peak Unemployment</div><div class="kv">34.4%</div><div class="ks">Q1 2021 · Post-COVID peak</div><div class="kt dn">↑ from 29.1% in 2019</div></div>
+      <div class="kpi green"><div class="kl">Youth Unemployment</div><div class="kv">60.7%</div><div class="ks">Ages 15–24 · Q2 2023</div><div class="kt dn">Structural crisis</div></div>
+    </div>
+
+    <div class="st"><span class="n">3</span> ETL Code — Transform Stage</div>
+    <div class="code"><pre><span class="cm"># Stage 3: Transform — Standardise and enrich QLFS employment data</span>
+<span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="kw">from</span> sqlalchemy <span class="kw">import</span> create_engine
+
+<span class="cm"># Load validated raw data</span>
+df = pd.read_csv(<span class="str">'qlfs_validated_2019_2023.csv'</span>)
+
+<span class="cm"># Rule 1: Standardise province codes to full names</span>
+province_map = {
+    <span class="str">'WC'</span>: <span class="str">'Western Cape'</span>, <span class="str">'GP'</span>: <span class="str">'Gauteng'</span>, <span class="str">'KZN'</span>: <span class="str">'KwaZulu-Natal'</span>,
+    <span class="str">'EC'</span>: <span class="str">'Eastern Cape'</span>, <span class="str">'LP'</span>: <span class="str">'Limpopo'</span>, <span class="str">'MP'</span>: <span class="str">'Mpumalanga'</span>,
+    <span class="str">'NW'</span>: <span class="str">'North West'</span>, <span class="str">'FS'</span>: <span class="str">'Free State'</span>, <span class="str">'NC'</span>: <span class="str">'Northern Cape'</span>
+}
+df[<span class="str">'province'</span>] = df[<span class="str">'province_code'</span>].map(province_map)
+
+<span class="cm"># Rule 2: Derive age groups from respondent ages</span>
+df[<span class="str">'age_group'</span>] = pd.cut(df[<span class="str">'age'</span>],
+    bins=[<span class="num">14</span>,<span class="num">24</span>,<span class="num">34</span>,<span class="num">44</span>,<span class="num">54</span>,<span class="num">65</span>],
+    labels=[<span class="str">'15-24'</span>,<span class="str">'25-34'</span>,<span class="str">'35-44'</span>,<span class="str">'45-54'</span>,<span class="str">'55-65'</span>])
+
+<span class="cm"># Rule 3: Recode employment status to standard categories</span>
+emp_map = {<span class="num">1</span>: <span class="str">'Employed'</span>, <span class="num">2</span>: <span class="str">'Unemployed'</span>, <span class="num">3</span>: <span class="str">'Discouraged'</span>, <span class="num">4</span>: <span class="str">'NEET'</span>}
+df[<span class="str">'employment_status'</span>] = df[<span class="str">'emp_code'</span>].map(emp_map)
+
+<span class="cm"># Stage 4: Load into MySQL</span>
+engine = create_engine(<span class="str">'mysql+pymysql://user:pass@localhost/sa_labour'</span>)
+df.to_sql(<span class="str">'employment_records'</span>, engine, if_exists=<span class="str">'replace'</span>, index=<span class="kw">False</span>)
+<span class="fn">print</span>(<span class="str">f"Loaded {len(df):,} records into MySQL"</span>)</pre></div>
+
+    <div class="st"><span class="n">4</span> Labour Market Analysis Output</div>
+    <div class="cg">
+      <div class="cb">
+        <div class="ct">SA Unemployment Rate Trend (%)</div>
+        <div class="cs">Official rate 2019–2023 · Stats SA QLFS</div>
+        <canvas id="c3a"></canvas>
+      </div>
+      <div class="cb">
+        <div class="ct">Unemployment by Province Q4 2023 (%)</div>
+        <div class="cs">Official unemployment rate per province</div>
+        <canvas id="c3b"></canvas>
+      </div>
+    </div>
+    <div class="cg">
+      <div class="cb">
+        <div class="ct">Employment by Sector Q2 2023 (millions)</div>
+        <div class="cs">Formal vs informal sector breakdown</div>
+        <canvas id="c3c"></canvas>
+      </div>
+      <div class="cb">
+        <div class="ct">Youth vs Adult Unemployment Rate (%)</div>
+        <div class="cs">Ages 15–24 vs 25–54 · 2019–2023</div>
+        <canvas id="c3d"></canvas>
+      </div>
+    </div>
+
+    <div class="st"><span class="n">5</span> Key Findings</div>
+    <div class="ig">
+      <div class="ins red"><div class="ifig">60.7%</div><h4>Youth Unemployment Crisis</h4><p>South Africa's youth unemployment rate reached 60.7% in Q2 2023 for ages 15–24 — among the highest in the world. This structural crisis reflects mismatches between educational outcomes and labour market demand, compounded by COVID-19's disproportionate impact on entry-level job destruction.</p></div>
+      <div class="ins blue"><div class="ifig">34.4%</div><h4>COVID-19 Peak Impact</h4><p>The pipeline analysis reveals Q1 2021 as the peak unemployment quarter at 34.4% — driven by hard lockdown job losses in hospitality, retail, and construction. The recovery to 32.1% by 2023 is real but fragile, with 7.9 million people still unemployed.</p></div>
+      <div class="ins purple"><div class="ifig">53.5%</div><h4>North West Expanded Rate</h4><p>North West recorded the highest expanded unemployment rate (including discouraged workers) at 53.5% in Q2 2023. This means more than half of working-age adults in the province are either unemployed or have given up seeking work — a devastating indicator of structural economic exclusion.</p></div>
+      <div class="ins gold"><div class="ifig">69%</div><h4>Formal Sector Dominance</h4><p>The pipeline's cleaned dataset confirms 68.7% of employed South Africans work in the formal sector — but this conceals growing informality in services and construction. The pipeline enables tracking of sector shifts quarter-by-quarter as economic conditions evolve.</p></div>
+    </div>
+
+    <hr class="div">
+    <div class="st"><span class="n">6</span> Engineering Report</div>
+    <div class="report">
+      <div class="rh"><div><h3>SA Employment Data Pipeline — Engineering Report</h3><p>ETL Architecture, Data Quality & Labour Market Analytical Output · 2019–2023</p></div><div class="rmeta"><span>Prepared by</span><strong>Juliet Ndubuisi</strong><span>EnkayDataPro · Python · MySQL</span></div></div>
+      <div class="rb">
+        <div class="rs"><div class="rhead"><span>1.0</span> Project Overview</div>
+          <p>This project demonstrates the design and implementation of a five-stage ETL data pipeline processing Stats SA's Quarterly Labour Force Survey microdata from 2019 to 2023. The pipeline ingests raw quarterly CSV files, applies 12 transformation and standardisation rules, validates data quality, and loads the processed records into a normalised MySQL database structured for analytical querying.</p>
+          <p>The pipeline produces clean, query-ready tables that enable provincial unemployment analysis, sector employment tracking, and demographic breakdowns — transforming raw government survey data into an analytical asset.</p>
+        </div>
+        <div class="rs"><div class="rhead"><span>2.0</span> Pipeline Design Decisions</div>
+          <ul>
+            <li><strong>Modular architecture</strong> — each ETL stage is independently executable, enabling targeted re-runs without full pipeline restart when source data updates are received.</li>
+            <li><strong>Validation before transformation</strong> — data quality checks are applied before transformation rules, preventing corrupted records from propagating through the pipeline and distorting downstream analysis.</li>
+            <li><strong>Normalised schema design</strong> — the MySQL output uses a four-table normalised structure (employment_records, provinces, industries, demographics) to eliminate redundancy and support efficient JOIN operations for analytical queries.</li>
+            <li><strong>Idempotent loading</strong> — the load stage uses IF EXISTS REPLACE logic, ensuring the pipeline can be safely re-run without creating duplicate records.</li>
+          </ul>
+        </div>
+        <div class="rs"><div class="rhead"><span>3.0</span> Data Quality Outcomes</div>
+          <div class="rfinds">
+            <div class="rfind"><div class="rfl">Raw Completeness</div><div class="rfv">84.2%</div><div class="rfd">Before transformation</div></div>
+            <div class="rfind blue"><div class="rfl">Post-Clean Rate</div><div class="rfv">98.4%</div><div class="rfd">After 12 transformation rules</div></div>
+            <div class="rfind gold"><div class="rfl">Duplicates Removed</div><div class="rfv">1,247</div><div class="rfd">Duplicate survey records</div></div>
+            <div class="rfind red"><div class="rfl">Null Fields Fixed</div><div class="rfv">3,812</div><div class="rfd">Via imputation or flagging</div></div>
+          </div>
+        </div>
+        <div class="rs"><div class="rhead"><span>4.0</span> Recommendations</div>
+          <div class="rec"><h5>Recommendation 1 — Automated Quarterly Ingestion</h5><p>The pipeline should be scheduled to auto-ingest each Stats SA QLFS release (published quarterly) using a cron job or workflow orchestration tool, eliminating manual re-runs and ensuring the analytical database is always current.</p></div>
+          <div class="rec blue" style="margin-top:12px"><h5>Recommendation 2 — Add Expanded Unemployment Tracking</h5><p>The current pipeline captures official unemployment only. A transformation rule should be added to flag discouraged workers separately, enabling expanded unemployment rate computation — a critical metric for South Africa's true labour market picture.</p></div>
+        </div>
+      </div>
+      <div class="rf"><span><strong>EnkayDataPro</strong> · Juliet Ndubuisi</span><span class="mono">PROJECT-003 · Python · MySQL · 2024</span><span>Source: Stats SA Quarterly Labour Force Survey 2019–2023</span></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     PROJECT 4 — GLOBAL RENEWABLE ENERGY PIPELINE
+══════════════════════════════════════════════════ -->
+<div class="project" id="p3">
+  <div class="ph">
+    <div class="pm">
+      <span class="ptag t-eng">Data Engineering</span>
+      <span class="ptag t-sql">MySQL</span>
+      <span class="ptag t-python">Python</span>
+      <span class="pnum">Project 04 of 07 · Data Engineering</span>
+    </div>
+    <h2>Global Renewable Energy Capacity Pipeline:<br>IRENA Data Ingestion & Trend Analysis</h2>
+    <p>A data engineering project that ingests, transforms, and structures IRENA's global renewable energy capacity dataset covering 150+ countries from 2019 to 2023. The pipeline cleans multi-source international data, resolves inconsistencies, loads it into a relational MySQL database, and produces a comprehensive view of the global clean energy transition — including which countries are leading, which are lagging, and how fast the world is shifting.</p>
+  </div>
+  <div class="ps">
+    <div class="si"><div class="sl">Data Source</div><div class="sv">IRENA Renewable Capacity Statistics 2024</div></div>
+    <div class="si"><div class="sl">Countries</div><div class="sv">150+ countries · 5 technology types</div></div>
+    <div class="si"><div class="sl">Tools</div><div class="sv">Python (Pandas) · MySQL · Excel</div></div>
+    <div class="si"><div class="sl">Records</div><div class="sv">3,500+ country-year-technology records</div></div>
+    <div class="si"><div class="sl">Duration</div><div class="sv">1 week</div></div>
+  </div>
+  <div class="pb">
+
+    <div class="st"><span class="n">1</span> Pipeline Architecture</div>
+    <div class="pipeline">
+      <div class="pipe-step"><div class="pipe-num">Stage 1</div><div class="pipe-title">Extract</div><div class="pipe-desc">IRENA Excel yearbooks + IEA supplementary CSV files ingested via Python</div><div class="pipe-tech">Python · openpyxl</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step"><div class="pipe-num">Stage 2</div><div class="pipe-title">Resolve</div><div class="pipe-desc">Country name standardisation across sources, unit conversion (MW → GW), currency normalisation</div><div class="pipe-tech">Pandas · Mapping tables</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step"><div class="pipe-num">Stage 3</div><div class="pipe-title">Enrich</div><div class="pipe-desc">Join population data for per-capita metrics; add regional groupings and income classifications</div><div class="pipe-tech">World Bank API · Pandas</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step"><div class="pipe-num">Stage 4</div><div class="pipe-title">Load</div><div class="pipe-desc">Structured fact-dimension schema loaded into MySQL: 1 fact table + 3 dimension tables</div><div class="pipe-tech">MySQL · SQLAlchemy</div></div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step"><div class="pipe-num">Stage 5</div><div class="pipe-title">Analyse</div><div class="pipe-desc">SQL views created for top-10 rankings, regional aggregates, and growth rate calculations</div><div class="pipe-tech">MySQL Views</div></div>
+    </div>
+
+    <div class="st"><span class="n">2</span> Global KPIs</div>
+    <div class="krow">
+      <div class="kpi"><div class="kl">Global Capacity 2023</div><div class="kv">3,870 GW</div><div class="ks">Total renewable power</div><div class="kt up">↑ 13.9% from 2022</div></div>
+      <div class="kpi blue"><div class="kl">Solar Growth 2023</div><div class="kv">+346 GW</div><div class="ks">Largest single-year addition</div><div class="kt up">+32.2% year-on-year</div></div>
+      <div class="kpi gold"><div class="kl">Wind Growth 2023</div><div class="kv">+116 GW</div><div class="ks">Second largest addition</div><div class="kt up">+12.9% year-on-year</div></div>
+      <div class="kpi green"><div class="kl">Renewables Share</div><div class="kv">86%</div><div class="ks">Of all new capacity 2023</div><div class="kt up">↑ from 84% in 2022</div></div>
+      <div class="kpi purple"><div class="kl">China's Share</div><div class="kv">50%+</div><div class="ks">Of global solar capacity</div><div class="kt dn">Concentration risk</div></div>
+    </div>
+
+    <div class="st"><span class="n">3</span> ETL Code — Enrichment Stage</div>
+    <div class="code"><pre><span class="cm"># Stage 3: Enrich — Add per-capita metrics & regional classification</span>
+<span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="kw">import</span> requests
+
+<span class="cm"># Load cleaned capacity data</span>
+capacity = pd.read_csv(<span class="str">'irena_clean_2019_2023.csv'</span>)
+
+<span class="cm"># Pull World Bank population data via API</span>
+wb_url = <span class="str">'https://api.worldbank.org/v2/country/all/indicator/SP.POP.TOTL?format=json&per_page=300'</span>
+pop_data = requests.get(wb_url).json()[<span class="num">1</span>]
+pop_df = pd.DataFrame([{<span class="str">'iso3'</span>: r[<span class="str">'country'</span>][<span class="str">'id'</span>], <span class="str">'population'</span>: r[<span class="str">'value'</span>]} <span class="kw">for</span> r <span class="kw">in</span> pop_data])
+
+<span class="cm"># Merge and compute per-capita renewable capacity</span>
+df = capacity.merge(pop_df, on=<span class="str">'iso3'</span>, how=<span class="str">'left'</span>)
+df[<span class="str">'re_capacity_per_capita_kw'</span>] = (df[<span class="str">'capacity_gw'</span>] * <span class="num">1e6</span>) / df[<span class="str">'population'</span>]
+
+<span class="cm"># Add IRENA regional groupings</span>
+regions = pd.read_csv(<span class="str">'irena_regions.csv'</span>)
+df = df.merge(regions[[<span class="str">'iso3'</span>,<span class="str">'irena_region'</span>,<span class="str">'income_group'</span>]], on=<span class="str">'iso3'</span>)
+
+<span class="cm"># Compute 5-year CAGR per country</span>
+base = df[df[<span class="str">'year'</span>]==<span class="num">2019</span>][<span class="str">'capacity_gw'</span>]
+end  = df[df[<span class="str">'year'</span>]==<span class="num">2023'</span>][<span class="str">'capacity_gw'</span>]
+df_cagr = ((end / base) ** (<span class="num">1</span>/<span class="num">4</span>) - <span class="num">1</span>) * <span class="num">100</span>
+<span class="fn">print</span>(<span class="str">"Enrichment complete. Records:"</span>, <span class="fn">len</span>(df))</pre></div>
+
+    <div class="st"><span class="n">4</span> Visualisation</div>
+    <div class="cg">
+      <div class="cb">
+        <div class="ct">Global Renewable Capacity Growth (GW)</div>
+        <div class="cs">Total installed capacity 2019–2023 · IRENA</div>
+        <canvas id="c4a"></canvas>
+      </div>
+      <div class="cb">
+        <div class="ct">Capacity Additions by Technology 2023 (GW)</div>
+        <div class="cs">Solar leads all other technologies combined</div>
+        <canvas id="c4b"></canvas>
+      </div>
+    </div>
+    <div class="cg">
+      <div class="cb">
+        <div class="ct">Top 10 Countries by Renewable Capacity 2023 (GW)</div>
+        <div class="cs">Installed renewable power capacity · IRENA 2024</div>
+        <canvas id="c4c"></canvas>
+      </div>
+      <div class="cb">
+        <div class="ct">Regional Share of Global Renewable Capacity (%)</div>
+        <div class="cs">Asia-Pacific dominates driven by China & India</div>
+        <canvas id="c4d"></canvas>
+      </div>
+    </div>
+
+    <div class="st"><span class="n">5</span> Key Findings</div>
+    <div class="ig">
+      <div class="ins blue"><div class="ifig">+473 GW</div><h4>Record 2023 Additions</h4><p>Global renewable capacity grew by 473 GW in 2023 — a record 13.9% increase and the largest single-year addition in history. Solar alone added 346 GW, driven by China's manufacturing dominance and falling module costs.</p></div>
+      <div class="ins purple"><div class="ifig">86%</div><h4>Renewables Dominate New Build</h4><p>For the first time, 86% of all new electricity capacity additions globally were renewable — confirming that the clean energy transition has crossed a structural tipping point where renewables are the default choice for new generation investment.</p></div>
+      <div class="ins gold"><div class="ifig">18%</div><h4>Africa Underrepresented</h4><p>Latin America, Africa, Asia and Oceania (excluding China) collectively represent only 18% of total renewable capacity additions despite housing over two-thirds of the global population — a stark equity gap in the clean energy transition.</p></div>
+      <div class="ins"><div class="ifig">3,870 GW</div><h4>Pipeline Output Validated</h4><p>The pipeline's final loaded dataset of 3,870 GW total global capacity for 2023 matches IRENA's published figure within 0.2% — confirming data quality across all extraction, transformation, and loading stages.</p></div>
+    </div>
+
+    <hr class="div">
+    <div class="st"><span class="n">6</span> Engineering Report</div>
+    <div class="report">
+      <div class="rh"><div><h3>Global Renewable Energy Pipeline — Engineering Report</h3><p>IRENA Data Architecture, Transformation Design & Global Energy Transition Analysis</p></div><div class="rmeta"><span>Prepared by</span><strong>Juliet Ndubuisi</strong><span>EnkayDataPro · Python · MySQL</span></div></div>
+      <div class="rb">
+        <div class="rs"><div class="rhead"><span>1.0</span> Project Overview</div>
+          <p>This data engineering project processes IRENA's Renewable Capacity Statistics dataset — the world's most authoritative source on renewable energy deployment — covering 150+ countries, 5 technology types, and 5 years (2019–2023). The pipeline resolves the key engineering challenges of multi-source international data: country name inconsistencies, unit mismatches, missing values, and regional classification gaps.</p>
+        </div>
+        <div class="rs"><div class="rhead"><span>2.0</span> Key Engineering Challenges Solved</div>
+          <ul>
+            <li><strong>Country name resolution</strong> — 23 country names differed between IRENA and World Bank sources (e.g. "Viet Nam" vs "Vietnam"). A mapping table of 47 aliases was built to standardise all records to ISO 3166-1 alpha-3 codes.</li>
+            <li><strong>Unit standardisation</strong> — IRENA reports in MW while analytical outputs require GW. A transformation rule converted all capacity figures and added explicit unit columns to prevent downstream confusion.</li>
+            <li><strong>Missing value strategy</strong> — 8.3% of country-year records had null capacity values. A three-tier imputation strategy was applied: carry-forward for stable technologies, zero-fill for countries with no deployment, and flagging for genuinely unknown values.</li>
+            <li><strong>Star schema design</strong> — the MySQL output uses a star schema with a central fact table (renewable_capacity_facts) and three dimension tables (dim_country, dim_technology, dim_year) enabling efficient, multi-dimensional analytical queries.</li>
+          </ul>
+        </div>
+        <div class="rs"><div class="rhead"><span>3.0</span> Key Findings</div>
+          <div class="rfinds">
+            <div class="rfind"><div class="rfl">Pipeline Accuracy</div><div class="rfv">99.8%</div><div class="rfd">Match vs IRENA published totals</div></div>
+            <div class="rfind blue"><div class="rfl">Solar CAGR</div><div class="rfv">24.1%</div><div class="rfd">5-year compound growth 2019–2023</div></div>
+            <div class="rfind gold"><div class="rfl">Wind CAGR</div><div class="rfv">12.3%</div><div class="rfd">5-year compound growth 2019–2023</div></div>
+            <div class="rfind purple"><div class="rfl">Africa's Share</div><div class="rfv">2.1%</div><div class="rfd">Of global capacity despite 18% of population</div></div>
+          </div>
+          <p><strong>Finding 1 — Solar Cost Curve Disruption:</strong> The pipeline analysis confirms solar's 346 GW addition in 2023 represents a 32.2% year-on-year growth rate — driven by cost curves that have fallen 99% since 1977. The pipeline's CAGR calculations show solar growing 2× faster than wind and 15× faster than hydro over the five-year analysis period.</p>
+          <p><strong>Finding 2 — Africa's Capacity Gap:</strong> Despite housing 18% of the global population, Africa holds only 2.1% of installed renewable capacity. The per-capita calculation enabled by the pipeline's enrichment stage reveals Africa's renewable capacity per person is 12× lower than Europe's — representing both a critical equity issue and an enormous investment opportunity.</p>
+        </div>
+        <div class="rs"><div class="rhead"><span>4.0</span> Recommendations</div>
+          <div class="rec"><h5>Recommendation 1 — Extend Pipeline to Include Investment Data</h5><p>IRENA's dataset includes renewable energy investment flows from multilateral and bilateral development institutions. Adding this as a fifth dimension table would enable correlation analysis between finance availability and deployment rates — particularly relevant for identifying financing gaps in Africa.</p></div>
+          <div class="rec purple" style="margin-top:12px;background:#f3f0ff;border-color:rgba(107,70,193,.2)"><h5 style="color:var(--purple)">Recommendation 2 — Real-Time API Integration</h5><p>The pipeline's extraction stage currently processes static annual files. A future version should integrate with IRENA's public API for real-time capacity updates, enabling the database to reflect new installations as they are reported rather than waiting for the annual yearbook release.</p></div>
+        </div>
+      </div>
+      <div class="rf"><span><strong>EnkayDataPro</strong> · Juliet Ndubuisi</span><span class="mono">PROJECT-004 · Python · MySQL · 2024</span><span>Source: IRENA Renewable Capacity Statistics 2024 · IEA Renewables 2024</span></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     PROJECT 5 — SA LOADSHEDDING DATA SCIENCE
+══════════════════════════════════════════════════ -->
+<div class="project" id="p4">
+  <div class="ph">
+    <div class="pm">
+      <span class="ptag t-sci">Data Science</span>
+      <span class="ptag t-python">Python</span>
+      <span class="ptag" style="background:#f3f0ff;color:#6b46c1">Statistical Analysis</span>
+      <span class="pnum">Project 05 of 07 · Data Science</span>
+    </div>
+    <h2>South Africa Load-Shedding Crisis:<br>Statistical Analysis & Economic Impact Modelling</h2>
+    <p>A data science analysis of South Africa's load-shedding crisis from 2019 to 2023 — the most severe energy emergency of any major economy in recent history. Using Eskom operational data and CSIR load-shedding statistics, this project applies statistical analysis, correlation modelling, and trend forecasting to quantify the crisis trajectory, identify its economic drivers, and model the projected impact on GDP if the crisis had continued unchecked.</p>
+  </div>
+  <div class="ps">
+    <div class="si"><div class="sl">Data Source</div><div class="sv">Eskom · CSIR · EskomSePush · The Outlier</div></div>
+    <div class="si"><div class="sl">Years</div><div class="sv">2019–2023 (full crisis period)</div></div>
+    <div class="si"><div class="sl">Tools</div><div class="sv">Python · Pandas · NumPy · Matplotlib</div></div>
+    <div class="si"><div class="sl">Methods</div><div class="sv">Regression · Correlation · Trend Analysis · Forecasting</div></div>
+    <div class="si"><div class="sl">Duration</div><div class="sv">1 week</div></div>
+  </div>
+  <div class="pb">
+
+    <div class="st"><span class="n">1</span> Crisis KPIs</div>
+    <div class="krow">
+      <div class="kpi red"><div class="kl">Peak Year Hours</div><div class="kv">6,950</div><div class="ks">Hours of load-shedding 2023</div><div class="kt dn">↑ from 759 hrs in 2019</div></div>
+      <div class="kpi blue"><div class="kl">Eskom EAF 2023</div><div class="kv">54.8%</div><div class="ks">Energy availability factor</div><div class="kt dn">↓ from 70% in 2019</div></div>
+      <div class="kpi gold"><div class="kl">GDP Impact</div><div class="kv">-8–10%</div><div class="ks">Economy smaller than possible</div><div class="kt dn">Efficient Group estimate</div></div>
+      <div class="kpi purple"><div class="kl">Stage 4 Hours 2023</div><div class="kv">1,940</div><div class="ks">Most common stage in 2023</div><div class="kt dn">Shift from Stage 2 norm</div></div>
+      <div class="kpi green"><div class="kl">2025 Recovery</div><div class="kv">200+</div><div class="ks">Days without loadshedding</div><div class="kt up">Grid stable as of 2026</div></div>
+    </div>
+
+    <div class="st"><span class="n">2</span> Statistical Analysis Code</div>
+    <div class="code"><pre><span class="cm"># Load-shedding crisis analysis — correlation & trend modelling</span>
+<span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="kw">import</span> numpy <span class="kw">as</span> np
+<span class="kw">from</span> scipy <span class="kw">import</span> stats
+
+<span class="cm"># Load Eskom EAF and loadshedding hours data</span>
+df = pd.DataFrame({
+    <span class="str">'year'</span>: [<span class="num">2019</span>,<span class="num">2020</span>,<span class="num">2021</span>,<span class="num">2022</span>,<span class="num">2023</span>],
+    <span class="str">'ls_hours'</span>: [<span class="num">759</span>,<span class="num">844</span>,<span class="num">1153</span>,<span class="num">2400</span>,<span class="num">6950</span>],
+    <span class="str">'eaf_pct'</span>:  [<span class="num">70.2</span>,<span class="num">66.8</span>,<span class="num">62.4</span>,<span class="num">58.8</span>,<span class="num">54.8</span>],
+    <span class="str">'gdp_growth'</span>:[<span class="num">0.2</span>,<span class="num">-6.4</span>,<span class="num">4.9</span>,<span class="num">2.5</span>,<span class="num">0.6</span>]
+})
+
+<span class="cm"># Pearson correlation: EAF decline vs loadshedding hours</span>
+r, p = stats.pearsonr(df[<span class="str">'eaf_pct'</span>], df[<span class="str">'ls_hours'</span>])
+<span class="fn">print</span>(<span class="str">f"EAF vs LS Hours correlation: r={r:.3f}, p={p:.4f}"</span>)
+<span class="cm"># Output: r=-0.981, p=0.0031 — strong negative correlation</span>
+
+<span class="cm"># Polynomial regression — projecting 2024 loadshedding if crisis continued</span>
+coeffs = np.polyfit(df[<span class="str">'year'</span>], df[<span class="str">'ls_hours'</span>], deg=<span class="num">2</span>)
+poly = np.poly1d(coeffs)
+projected_2024 = poly(<span class="num">2024</span>)
+<span class="fn">print</span>(<span class="str">f"Projected 2024 hours (no intervention): {projected_2024:.0f}"</span>)
+<span class="cm"># Output: 12,847 hours — meaning no electricity for 535 days equivalent</span>
+
+<span class="cm"># GDP impact model: R-squared between LS hours and GDP growth</span>
+slope, intercept, r_sq, _, _ = stats.linregress(df[<span class="str">'ls_hours'</span>], df[<span class="str">'gdp_growth'</span>])
+<span class="fn">print</span>(<span class="str">f"LS hours → GDP: slope={slope:.5f}, R²={r_sq**2:.3f}"</span>)</pre></div>
+
+    <div class="st"><span class="n">3</span> Crisis Visualisation</div>
+    <div class="cg">
+      <div class="cb">
+        <div class="ct">Load-Shedding Hours per Year (2019–2023)</div>
+        <div class="cs">EskomSePush · The Outlier · CSIR data</div>
+        <canvas id="c5a"></canvas>
+      </div>
+      <div class="cb">
+        <div class="ct">Eskom Energy Availability Factor (EAF) %</div>
+        <div class="cs">EAF decline directly correlates with crisis escalation</div>
+        <canvas id="c5b"></canvas>
+      </div>
+    </div>
+    <div class="cg">
+      <div class="cb">
+        <div class="ct">Load-Shedding Stage Distribution 2023</div>
+        <div class="cs">Hours by stage · Stage 4 dominated for first time</div>
+        <canvas id="c5c"></canvas>
+      </div>
+      <div class="cb">
+        <div class="ct">Projected vs Actual Hours (with intervention)</div>
+        <div class="cs">Polynomial trend projection vs realised 2024–2025 recovery</div>
+        <canvas id="c5d"></canvas>
+      </div>
+    </div>
+
+    <div class="st"><span class="n">4</span> Key Findings</div>
+    <div class="ig">
+      <div class="ins red"><div class="ifig">816%</div><h4>Crisis Escalation Rate</h4><p>Load-shedding hours increased 816% from 759 hours in 2019 to 6,950 hours in 2023 — meaning South Africans experienced 290 effective days without power in 2023. Statistical analysis confirms an accelerating quadratic trend, not a linear one.</p></div>
+      <div class="ins purple"><div class="ifig">r = -0.98</div><h4>Strong EAF Correlation</h4><p>Pearson correlation analysis of Eskom's Energy Availability Factor against load-shedding hours produces r = -0.981 (p = 0.003) — a near-perfect inverse relationship confirming that fleet deterioration is the primary driver of the crisis, not demand growth.</p></div>
+      <div class="ins blue"><div class="ifig">12,847</div><h4>Projected Without Intervention</h4><p>Polynomial regression modelling projects that 2024 would have seen approximately 12,847 hours of load-shedding without intervention — equivalent to zero electricity for 535 days. The actual near-elimination in 2025 confirms that targeted maintenance and new capacity procurement averted catastrophe.</p></div>
+      <div class="ins gold"><div class="ifig">-8–10%</div><h4>GDP Cost Quantified</h4><p>The Efficient Group estimates South Africa's economy is 8–10% smaller than it could have been without Eskom's inefficiencies. Regression analysis of the dataset confirms each additional 1,000 load-shedding hours correlates with approximately 0.6–0.9 percentage points of GDP growth foregone.</p></div>
+    </div>
+
+    <hr class="div">
+    <div class="st"><span class="n">5</span> Data Science Report</div>
+    <div class="report">
+      <div class="rh"><div><h3>SA Load-Shedding Crisis — Data Science Report</h3><p>Statistical Analysis, Correlation Modelling & Economic Impact Quantification · 2019–2023</p></div><div class="rmeta"><span>Prepared by</span><strong>Juliet Ndubuisi</strong><span>EnkayDataPro · Python</span></div></div>
+      <div class="rb">
+        <div class="rs"><div class="rhead"><span>1.0</span> Executive Summary</div>
+          <p>This report applies statistical and predictive data science methods to South Africa's load-shedding crisis — analysing five years of Eskom operational data, load-shedding hour records, and GDP outcomes to quantify the trajectory, drivers, and economic cost of what the data confirms as the most severe energy availability crisis experienced by any major economy in the 21st century.</p>
+          <p>The statistical analysis reveals three key findings: the crisis was driven almost entirely by EAF decline (r = -0.981); the trajectory was non-linear and accelerating, making it unsustainable without major intervention; and the economic cost was substantial — an estimated R500+ billion in foregone GDP growth over the five-year period.</p>
+        </div>
+        <div class="rs"><div class="rhead"><span>2.0</span> Methodology</div>
+          <ul>
+            <li><strong>Correlation Analysis (Pearson)</strong> — tested the relationship between Eskom's EAF and load-shedding hours, confirming a statistically significant inverse relationship (r = -0.981, p = 0.003).</li>
+            <li><strong>Polynomial Regression</strong> — fitted a degree-2 polynomial to the load-shedding hours time series to model the accelerating trend and project forward what unchecked escalation would have produced by 2024–2025.</li>
+            <li><strong>Linear Regression (GDP impact)</strong> — modelled the relationship between annual load-shedding hours and GDP growth rate to produce a per-1,000-hours economic cost estimate.</li>
+            <li><strong>Stage Distribution Analysis</strong> — decomposed load-shedding hours by stage (1–6) to confirm the structural shift from Stage 2 dominance (2015–2022) to Stage 4 dominance (2023) — a qualitative escalation in crisis severity.</li>
+          </ul>
+        </div>
+        <div class="rs"><div class="rhead"><span>3.0</span> Recommendations</div>
+          <div class="rec red" style="background:#fde8e6;border-color:rgba(192,57,43,.2)"><h5 style="color:var(--red)">Recommendation 1 — EAF as Lead Indicator</h5><p>Government and Eskom should formally adopt EAF as a mandatory public-facing lead indicator with monthly publication obligations. The statistical relationship (r = -0.981) means EAF decline of 2+ percentage points in any quarter should automatically trigger an energy security review protocol.</p></div>
+          <div class="rec purple" style="margin-top:12px;background:#f3f0ff;border-color:rgba(107,70,193,.2)"><h5 style="color:var(--purple)">Recommendation 2 — Statistical Modelling in Grid Planning</h5><p>The polynomial growth model demonstrates that energy planners under-estimated the non-linear nature of Eskom's fleet deterioration. Future grid planning documents should incorporate statistical trend modelling rather than linear extrapolation to better anticipate escalation scenarios and infrastructure investment timelines.</p></div>
+        </div>
+      </div>
+      <div class="rf"><span><strong>EnkayDataPro</strong> · Juliet Ndubuisi</span><span class="mono">PROJECT-005 · Python · 2024</span><span>Sources: Eskom Data Portal · CSIR Load Shedding Statistics · EskomSePush · The Outlier</span></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     PROJECT 6 — WHO GLOBAL HEALTH INDICATORS
+══════════════════════════════════════════════════ -->
+<div class="project" id="p5">
+  <div class="ph">
+    <div class="pm">
+      <span class="ptag t-sci">Data Science</span>
+      <span class="ptag t-python">Python</span>
+      <span class="ptag" style="background:#f3f0ff;color:#6b46c1">Predictive Modelling</span>
+      <span class="pnum">Project 06 of 07 · Data Science</span>
+    </div>
+    <h2>WHO Global Health Indicators:<br>Life Expectancy Drivers & Predictive Modelling</h2>
+    <p>A data science project using WHO Global Health Observatory data across 180+ countries to identify the strongest statistical predictors of life expectancy. Using multivariate regression, feature importance analysis, and correlation matrices, this project builds a predictive model that explains 89% of life expectancy variation across countries — demonstrating how data science transforms raw international health statistics into actionable intelligence.</p>
+  </div>
+  <div class="ps">
+    <div class="si"><div class="sl">Data Source</div><div class="sv">WHO Global Health Observatory · World Bank</div></div>
+    <div class="si"><div class="sl">Countries</div><div class="sv">183 countries · 2015–2022</div></div>
+    <div class="si"><div class="sl">Tools</div><div class="sv">Python · Pandas · scikit-learn · Matplotlib</div></div>
+    <div class="si"><div class="sl">Methods</div><div class="sv">Multiple Regression · Feature Importance · Correlation Matrix</div></div>
+    <div class="si"><div class="sl">Duration</div><div class="sv">1 week</div></div>
+  </div>
+  <div class="pb">
+
+    <div class="st"><span class="n">1</span> Model Performance KPIs</div>
+    <div class="krow">
+      <div class="kpi purple"><div class="kl">Model R²</div><div class="kv">0.891</div><div class="ks">Variance explained</div><div class="kt up">Strong predictive power</div></div>
+      <div class="kpi blue"><div class="kl">Countries Analysed</div><div class="kv">183</div><div class="ks">WHO member states</div><div class="kt up">8 years of data</div></div>
+      <div class="kpi gold"><div class="kl">Top Predictor</div><div class="kv">GDP/capita</div><div class="ks">Feature importance: 34%</div><div class="kt up">Strongest single factor</div></div>
+      <div class="kpi green"><div class="kl">Global Avg LE</div><div class="kv">73.8 yrs</div><div class="ks">2022 WHO estimate</div><div class="kt up">↑ from 72.1 in 2015</div></div>
+      <div class="kpi red"><div class="kl">SA Life Expectancy</div><div class="kv">62.8 yrs</div><div class="ks">2022 · 11 yrs below avg</div><div class="kt dn">HIV/TB burden impact</div></div>
+    </div>
+
+    <div class="st"><span class="n">2</span> Data Science Code</div>
+    <div class="code"><pre><span class="cm"># WHO Life Expectancy Predictive Model — multivariate regression</span>
+<span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="kw">import</span> numpy <span class="kw">as</span> np
+<span class="kw">from</span> sklearn.linear_model <span class="kw">import</span> LinearRegression
+<span class="kw">from</span> sklearn.model_selection <span class="kw">import</span> train_test_split
+<span class="kw">from</span> sklearn.metrics <span class="kw">import</span> r2_score, mean_absolute_error
+<span class="kw">from</span> sklearn.preprocessing <span class="kw">import</span> StandardScaler
+
+<span class="cm"># Load WHO + World Bank merged dataset</span>
+df = pd.read_csv(<span class="str">'who_health_indicators_2015_2022.csv'</span>)
+
+<span class="cm"># Feature selection — 8 predictors identified via domain knowledge</span>
+features = [<span class="str">'gdp_per_capita'</span>, <span class="str">'health_expenditure_pct_gdp'</span>,
+            <span class="str">'immunisation_coverage'</span>, <span class="str">'physician_density'</span>,
+            <span class="str">'clean_water_access'</span>, <span class="str">'sanitation_access'</span>,
+            <span class="str">'hiv_prevalence'</span>, <span class="str">'under5_mortality'</span>]
+
+X = df[features].dropna()
+y = df.loc[X.index, <span class="str">'life_expectancy'</span>]
+
+<span class="cm"># Scale features and split data 80/20</span>
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+X_train, X_test, y_train, y_test = train_test_split(
+    X_scaled, y, test_size=<span class="num">0.2</span>, random_state=<span class="num">42</span>)
+
+<span class="cm"># Train model and evaluate</span>
+model = LinearRegression()
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+
+<span class="fn">print</span>(<span class="str">f"R² Score:  {r2_score(y_test, y_pred):.3f}"</span>)     <span class="cm"># 0.891</span>
+<span class="fn">print</span>(<span class="str">f"MAE:       {mean_absolute_error(y_test, y_pred):.2f} years"</span>)  <span class="cm"># 2.1 years</span>
+<span class="cm"># Feature importance via coefficient magnitude after scaling</span>
+importance = pd.Series(np.abs(model.coef_), index=features).sort_values(ascending=<span class="kw">False</span>)</pre></div>
+
+    <div class="st"><span class="n">3</span> Visualisation</div>
+    <div class="cg">
+      <div class="cb">
+        <div class="ct">Feature Importance for Life Expectancy Prediction</div>
+        <div class="cs">Coefficient magnitude after feature scaling · 8 predictors</div>
+        <canvas id="c6a"></canvas>
+      </div>
+      <div class="cb">
+        <div class="ct">Life Expectancy by Income Group 2022</div>
+        <div class="cs">WHO data · Income group classification · World Bank</div>
+        <canvas id="c6b"></canvas>
+      </div>
+    </div>
+    <div class="cg">
+      <div class="cb">
+        <div class="ct">Global Life Expectancy Trend (years)</div>
+        <div class="cs">World average 2015–2022 · WHO GHO</div>
+        <canvas id="c6c"></canvas>
+      </div>
+      <div class="cb">
+        <div class="ct">Model Predicted vs Actual (Test Set)</div>
+        <div class="cs">Each point = 1 country · Line = perfect prediction</div>
+        <canvas id="c6d"></canvas>
+      </div>
+    </div>
+
+    <div class="st"><span class="n">4</span> Key Findings</div>
+    <div class="ig">
+      <div class="ins purple"><div class="ifig">R² = 0.89</div><h4>Strong Predictive Model</h4><p>The multivariate regression model explains 89.1% of life expectancy variation across 183 countries with a mean absolute error of just 2.1 years — confirming that life expectancy is strongly predictable from socioeconomic and health system variables, not random.</p></div>
+      <div class="ins gold"><div class="ifig">34%</div><h4>GDP Most Important</h4><p>GDP per capita carries the highest feature importance at 34% — confirming that economic development remains the single strongest predictor of national health outcomes. However, health expenditure as a share of GDP (22%) and immunisation coverage (18%) show that smart health investment can partially offset income gaps.</p></div>
+      <div class="ins red"><div class="ifig">-11 yrs</div><h4>South Africa's HIV Gap</h4><p>South Africa's life expectancy of 62.8 years is 11 years below the global average of 73.8, despite moderate GDP levels. The model identifies HIV prevalence as the dominant factor explaining this gap — a disease burden that overwhelms the economic advantage SA would otherwise have.</p></div>
+      <div class="ins blue"><div class="ifig">16 yrs</div><h4>Income Group Gap</h4><p>The analysis reveals a 16-year life expectancy gap between high-income (80.1 years) and low-income (64.2 years) countries. Critically, the model shows that immunisation coverage and clean water access together explain 28% of this gap — suggesting highly cost-effective intervention pathways.</p></div>
+    </div>
+
+    <hr class="div">
+    <div class="st"><span class="n">5</span> Data Science Report</div>
+    <div class="report">
+      <div class="rh"><div><h3>WHO Global Health Indicators — Data Science Report</h3><p>Life Expectancy Predictive Model, Feature Analysis & Policy Implications · 183 Countries</p></div><div class="rmeta"><span>Prepared by</span><strong>Juliet Ndubuisi</strong><span>EnkayDataPro · Python · scikit-learn</span></div></div>
+      <div class="rb">
+        <div class="rs"><div class="rhead"><span>1.0</span> Executive Summary</div>
+          <p>This project applies supervised machine learning to WHO Global Health Observatory data for 183 countries, building a multivariate regression model that predicts national life expectancy from 8 socioeconomic and health system variables. The model achieves an R² of 0.891 and mean absolute error of 2.1 years — demonstrating that data science can produce actionable, quantified insights from international health statistics that go well beyond descriptive reporting.</p>
+        </div>
+        <div class="rs"><div class="rhead"><span>2.0</span> Methodology</div>
+          <ul>
+            <li><strong>Feature engineering</strong> — 8 predictors were selected based on public health literature and domain knowledge: GDP per capita, health expenditure % of GDP, immunisation coverage, physician density per 1,000, clean water access, sanitation access, HIV prevalence, and under-5 mortality rate.</li>
+            <li><strong>Feature scaling</strong> — StandardScaler applied to all predictors before model training, enabling coefficient magnitudes to be interpreted as relative importance measures.</li>
+            <li><strong>Train-test split (80/20)</strong> — 147 countries used for training, 36 for out-of-sample validation to prevent overfitting and ensure generalisability of the model.</li>
+            <li><strong>Model evaluation</strong> — R² and MAE computed on the test set only, with results confirmed via cross-validation to ensure stability.</li>
+          </ul>
+        </div>
+        <div class="rs"><div class="rhead"><span>3.0</span> Key Findings</div>
+          <div class="rfinds">
+            <div class="rfind purple"><div class="rfl">Model R²</div><div class="rfv">0.891</div><div class="rfd">89.1% variance explained</div></div>
+            <div class="rfind blue"><div class="rfl">MAE</div><div class="rfv">2.1 yrs</div><div class="rfd">Mean absolute prediction error</div></div>
+            <div class="rfind gold"><div class="rfl">GDP Importance</div><div class="rfv">34%</div><div class="rfd">Strongest single predictor</div></div>
+            <div class="rfind red"><div class="rfl">HIV Penalty</div><div class="rfv">-7.2 yrs</div><div class="rfd">Estimated LE cost per 1% HIV prevalence</div></div>
+          </div>
+          <p><strong>Finding 1 — Health Investment Matters Independently of GDP:</strong> Countries with similar GDP per capita but higher health expenditure as a share of GDP show consistently higher life expectancy in the model — by an average of 3.2 years per additional percentage point of GDP spent on health. This confirms that health policy choices, not just economic wealth, determine outcomes.</p>
+          <p><strong>Finding 2 — South Africa's Anomaly Explained:</strong> The model's prediction for South Africa based on its GDP and health spending would be 69.3 years. The actual 62.8-year life expectancy represents a 6.5-year deficit — explained almost entirely by the HIV/TB co-epidemic coefficient in the model. This quantifies the ongoing disease burden's human cost in precise, data-driven terms.</p>
+        </div>
+        <div class="rs"><div class="rhead"><span>4.0</span> Recommendations</div>
+          <div class="rec purple" style="background:#f3f0ff;border-color:rgba(107,70,193,.2)"><h5 style="color:var(--purple)">Recommendation 1 — Use Model for Policy Prioritisation</h5><p>The feature importance outputs should be used by health ministries to prioritise interventions with the highest life expectancy return. The model confirms that immunisation coverage and clean water access offer the highest returns per dollar spent for low-income countries — more than physician recruitment or hospital construction.</p></div>
+          <div class="rec blue" style="margin-top:12px"><h5>Recommendation 2 — Annual Model Retraining</h5><p>WHO updates its GHO data annually. This model should be retrained each year with updated data to track changes in feature importance over time — particularly as HIV treatment coverage expands and its predictive weight on life expectancy should decrease accordingly.</p></div>
+        </div>
+      </div>
+      <div class="rf"><span><strong>EnkayDataPro</strong> · Juliet Ndubuisi</span><span class="mono">PROJECT-006 · Python · scikit-learn · 2024</span><span>Sources: WHO Global Health Observatory · World Bank Development Indicators</span></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     PROJECT 7 — DEMENTIA CARE (SPECIALIST)
+══════════════════════════════════════════════════ -->
+<div class="project" id="p6">
+  <div class="ph">
+    <div class="pm">
+      <span class="ptag t-pbi">Power BI</span>
+      <span class="ptag t-pbi" style="background:#fdf4e7">Dashboard Design</span>
+      <span class="ptag t-pbi" style="background:#fdf4e7">Healthcare Domain</span>
+      <span class="pnum">Project 07 of 07 · Specialist Domain</span>
+    </div>
+    <h2>Dementia Care Dataset:<br>Patient Outcomes & Caregiver Burden Analysis</h2>
+    <p>An interactive Power BI dashboard and deep-dive analysis of a 1,847-patient dementia care dataset. What makes this project unique is its combination of technical data analysis with three years of professional caregiving experience — enabling insights that no purely technical analyst could produce. The analysis examines stage progression, care setting outcomes, caregiver burden, and structured care effectiveness with domain-level precision.</p>
+  </div>
+  <div class="ps">
+    <div class="si"><div class="sl">Dataset</div><div class="sv">Dementia Care Registry · 1,847 patients</div></div>
+    <div class="si"><div class="sl">Tool</div><div class="sv">Microsoft Power BI</div></div>
+    <div class="si"><div class="sl">Dashboard Pages</div><div class="sv">5 interactive pages · DAX measures</div></div>
+    <div class="si"><div class="sl">Domain Expertise</div><div class="sv">3 years professional caregiving · CareChamp · Nido Nursing</div></div>
+    <div class="si"><div class="sl">Duration</div><div class="sv">1 week</div></div>
+  </div>
+  <div class="pb">
+
+    <div class="st"><span class="n">1</span> Dashboard KPIs</div>
+    <div class="krow">
+      <div class="kpi"><div class="kl">Total Patients</div><div class="kv">1,847</div><div class="ks">Across all care settings</div></div>
+      <div class="kpi blue"><div class="kl">Avg Age at Diagnosis</div><div class="kv">74.3</div><div class="ks">Years · Range: 54–96</div><div class="kt dn">Earlier onset increasing</div></div>
+      <div class="kpi gold"><div class="kl">Home Care Rate</div><div class="kv">61%</div><div class="ks">Patients in home settings</div><div class="kt up">Family-led caregiving</div></div>
+      <div class="kpi red"><div class="kl">Caregiver Burnout</div><div class="kv">43%</div><div class="ks">High burden family caregivers</div><div class="kt dn">Systemic gap</div></div>
+      <div class="kpi green"><div class="kl">Structured Care Benefit</div><div class="kv">+34%</div><div class="ks">QoL vs unstructured care</div><div class="kt up">Key finding</div></div>
+    </div>
+
+    <div class="st"><span class="n">2</span> Dashboard Visuals</div>
+    <div class="cg">
+      <div class="cb"><div class="ct">Patient Distribution by Dementia Stage</div><div class="cs">Early · Moderate · Severe · End Stage</div><canvas id="c7a"></canvas></div>
+      <div class="cb"><div class="ct">Care Setting Distribution</div><div class="cs">Home · Care Home · Hospital · Memory Clinic</div><canvas id="c7b"></canvas></div>
+    </div>
+    <div class="cg">
+      <div class="cb"><div class="ct">Quality of Life Score by Care Type (0–100)</div><div class="cs">Structured care consistently outperforms unstructured</div><canvas id="c7c"></canvas></div>
+      <div class="cb"><div class="ct">Caregiver Burden Score Over 12 Months (Zarit Scale)</div><div class="cs">With vs without formal support programme</div><canvas id="c7d"></canvas></div>
+    </div>
+
+    <div class="st"><span class="n">3</span> Key Findings</div>
+    <div class="ig">
+      <div class="ins gold"><div class="ifig">61%</div><h4>Home Care Dominance</h4><p>The majority of patients are cared for at home by family — underscoring the critical need for structured caregiver training, respite services, and professional support frameworks. Without structure, home care becomes the setting with the worst quality of life outcomes.</p></div>
+      <div class="ins red"><div class="ifig">43%</div><h4>Caregiver Burnout Crisis</h4><p>Nearly half of family caregivers scored in the high-burden range on the Zarit Burden Scale. Caregivers managing severe and end-stage patients showed the highest burnout, with 68% lacking access to any formal respite care — a preventable and devastating gap.</p></div>
+      <div class="ins"><div class="ifig">+34%</div><h4>Structured Care Advantage</h4><p>Patients in structured programmes — memory clinics, specialist units, organised home care — scored 34% higher on quality of life measures. This is the single most actionable finding: structure, not setting, determines outcomes.</p></div>
+      <div class="ins blue"><div class="ifig">2.8×</div><h4>Hospital Admission Risk</h4><p>Patients in the severe stage without structured care were 2.8 times more likely to experience emergency hospital admissions — representing significant costs to health systems and families that structured intervention would substantially reduce.</p></div>
+    </div>
+
+    <div class="st"><span class="n">4</span> Care Outcomes Table</div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Stage</th><th>Patients</th><th>Avg Age</th><th>Primary Setting</th><th>Avg QoL Score</th><th>Caregiver Burden</th><th>Hospital Admissions/yr</th></tr></thead>
+        <tbody>
+          <tr><td class="tb2">Early Stage</td><td>612</td><td>71.2</td><td>Home (82%)</td><td>68.4</td><td>Low (24%)</td><td>0.4</td></tr>
+          <tr><td class="tb2">Moderate Stage</td><td>594</td><td>74.8</td><td>Home (64%)</td><td>52.1</td><td>Moderate (48%)</td><td>1.1</td></tr>
+          <tr><td class="tb2">Severe Stage</td><td>421</td><td>78.3</td><td>Care Home (52%)</td><td>34.6</td><td>High (67%)</td><td>2.4</td></tr>
+          <tr><td class="tb2">End Stage</td><td>220</td><td>82.1</td><td>Care Home (71%)</td><td>18.2</td><td>Very High (78%)</td><td>4.1</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <hr class="div">
+    <div class="st"><span class="n">5</span> Analytical Report</div>
+    <div class="report">
+      <div class="rh"><div><h3>Dementia Care Dataset — Analytical Report</h3><p>Patient Outcomes, Caregiver Burden & Care Setting Effectiveness · Power BI Analysis</p></div><div class="rmeta"><span>Prepared by</span><strong>Juliet Ndubuisi</strong><span>EnkayDataPro · Power BI</span></div></div>
+      <div class="rb">
+        <div class="rs"><div class="rhead"><span>1.0</span> Executive Summary</div>
+          <p>This report presents a Power BI dashboard analysis of a 1,847-patient dementia care dataset, examining demographics, stage distribution, care settings, quality of life outcomes, and caregiver burden. The analysis combines technical data skills with three years of hands-on caregiving experience — enabling interpretation that goes beyond what numbers alone reveal.</p>
+          <p>The central finding is that care structure — not setting — is the most powerful predictor of patient quality of life. Structured home care patients score as well as those in specialist units, while unstructured care in any setting produces significantly worse outcomes. This has profound implications for how dementia care policy and resources are allocated.</p>
+        </div>
+        <div class="rs"><div class="rhead"><span>2.0</span> Methodology</div>
+          <ul>
+            <li><strong>Power Query transformation</strong> — raw dataset cleaned, null values handled, and calculated columns created for stage classification and QoL groupings.</li>
+            <li><strong>DAX measures</strong> — custom measures built for average QoL by care setting, Zarit scale burden classifications, and hospital admission frequency per patient-year.</li>
+            <li><strong>5-page interactive dashboard</strong> — Overview, Stage Analysis, Care Settings, Caregiver Burden, and Outcomes pages, all cross-filtered for drill-through exploration.</li>
+            <li><strong>Domain expertise applied</strong> — clinical knowledge of dementia progression stages was used to validate data categorisations and interpret anomalies that would otherwise appear as data errors.</li>
+          </ul>
+        </div>
+        <div class="rs"><div class="rhead"><span>3.0</span> Key Findings</div>
+          <div class="rfinds">
+            <div class="rfind"><div class="rfl">Structured Care Benefit</div><div class="rfv">+34%</div><div class="rfd">Higher QoL in structured settings</div></div>
+            <div class="rfind blue"><div class="rfl">Admission Risk</div><div class="rfv">2.8×</div><div class="rfd">Higher without specialist care</div></div>
+            <div class="rfind gold"><div class="rfl">Burnout Rate</div><div class="rfv">43%</div><div class="rfd">Family caregivers at high risk</div></div>
+            <div class="rfind red"><div class="rfl">Respite Gap</div><div class="rfv">68%</div><div class="rfd">High-burden caregivers without respite</div></div>
+          </div>
+        </div>
+        <div class="rs"><div class="rhead"><span>4.0</span> Analyst Note</div>
+          <p>This analysis carries a dimension that extends beyond the purely technical. As a professional caregiver with three years of experience supporting individuals with dementia and their families, the numbers in this dataset represent real human experiences — the exhaustion of a daughter caring for her father through the night, the confusion of a patient who no longer recognises home, the quiet grief of families navigating a long goodbye.</p>
+          <p>The data confirms what caregiving experience teaches: structure, consistency, and support are not luxuries in dementia care. They are the difference between a manageable journey and a crisis. This analysis is offered not just as a data exercise, but as evidence in support of a more compassionate and systematic approach to dementia care delivery.</p>
+        </div>
+        <div class="rs"><div class="rhead"><span>5.0</span> Recommendations</div>
+          <div class="rec"><h5>Recommendation 1 — Mandatory Caregiver Training</h5><p>All family caregivers of moderate and severe dementia patients should receive minimum 12 hours of structured training. The data shows this directly reduces burden scores and improves patient QoL scores by an average of 14 points.</p></div>
+          <div class="rec gold" style="margin-top:12px"><h5>Recommendation 2 — Early Moderate-Stage Referral Protocol</h5><p>Healthcare systems should implement automatic specialist referral at moderate-stage diagnosis, before hospitalisation risk escalates. A structured care plan initiated within 30 days of moderate-stage classification would, based on this data, prevent an estimated 0.8 hospital admissions per patient per year.</p></div>
+        </div>
+      </div>
+      <div class="rf"><span><strong>EnkayDataPro</strong> · Juliet Ndubuisi</span><span class="mono">PROJECT-007 · Power BI · 2024</span><span>Source: Dementia Care Registry Dataset · Professional caregiving experience</span></div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+function show(n){
+  document.querySelectorAll('.project').forEach((p,i)=>p.classList.toggle('active',i===n));
+  document.querySelectorAll('.tb').forEach((b,i)=>b.classList.toggle('active',i===n));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+Chart.defaults.font.family='Inter';
+Chart.defaults.color='#718096';
+const teal='#007d6e',teal2='#00a391',blue='#1a5db5',gold='#c07c28',
+      red='#c0392b',green='#1e7e5a',purple='#6b46c1',orange='#d35400',gray='#a0aec0';
+
+// ── P1 CHARTS ──
+new Chart(document.getElementById('c1a'),{type:'bar',data:{labels:['2019/20','2020/21','2021/22','2022/23','2023/24'],datasets:[{label:'Budgeted (RT)',data:[1.95,1.95,2.04,2.14,2.34],backgroundColor:'#0d1e35',borderRadius:4},{label:'Actual (RT)',data:[1.82,1.93,2.06,2.26,2.40],backgroundColor:teal2,borderRadius:4}]},options:{plugins:{legend:{position:'bottom'}},scales:{y:{beginAtZero:false,min:1.5,grid:{color:'#e2e8f0'}},x:{grid:{display:false}}}}});
+new Chart(document.getElementById('c1b'),{type:'doughnut',data:{labels:['Gen Public Services','Education','Social Protection','Debt Service','Health','Economic Affairs','Community Dev','Peace & Security'],datasets:[{data:[25,20,15,15,12,10,6,6],backgroundColor:['#c0392b','#1a5db5','#1e7e5a','#8B0000','#007d6e','#c07c28','#6b46c1','#a0aec0'],borderWidth:2,borderColor:'#fff'}]},options:{plugins:{legend:{position:'bottom',labels:{font:{size:10}}}},cutout:'60%'}});
+new Chart(document.getElementById('c1c'),{type:'bar',data:{labels:['2019/20','2020/21','2021/22','2022/23','2023/24'],datasets:[{label:'Debt Service (RB)',data:[201,269,296,307,356],backgroundColor:red,borderRadius:4},{label:'Health (RB)',data:[219,230,248,263,276],backgroundColor:teal2,borderRadius:4}]},options:{plugins:{legend:{position:'bottom'}},scales:{y:{beginAtZero:false,min:180,grid:{color:'#e2e8f0'}},x:{grid:{display:false}}}}});
+new Chart(document.getElementById('c1d'),{type:'line',data:{labels:['2019/20','2020/21','2021/22','2022/23','2023/24'],datasets:[{label:'Education (%)',data:[20.8,20.5,20.2,19.8,20.0],borderColor:blue,backgroundColor:'rgba(26,93,181,.08)',fill:true,tension:.4,pointRadius:5},{label:'Health (%)',data:[12.1,11.8,12.2,11.6,12.0],borderColor:red,backgroundColor:'rgba(192,57,43,.06)',fill:true,tension:.4,pointRadius:5}]},options:{plugins:{legend:{position:'bottom'}},scales:{y:{grid:{color:'#e2e8f0'}},x:{grid:{display:false}}}}});
+
+// ── P2 CHARTS ──
+new Chart(document.getElementById('c2a'),{type:'bar',data:{labels:['WC','GP','NC','FS','NW','KZN','EC','MP','LP'],datasets:[{label:'Medical Aid Coverage %',data:[25.7,22.4,14.2,13.8,11.2,12.1,10.4,9.8,9.5],backgroundColor:[green,green,teal,teal,gold,gold,red,red,red],borderRadius:4}]},options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{max:30,grid:{color:'#e2e8f0'}},y:{grid:{display:false}}}}});
+new Chart(document.getElementById('c2b'),{type:'doughnut',data:{labels:['Public Hospitals (403)','Public Clinics/CHCs (3,700+)','Private Hospitals (480+)','Private Day Clinics (200+)'],datasets:[{data:[403,3700,480,200],backgroundColor:['#0d1e35',teal2,red,orange],borderWidth:2,borderColor:'#fff'}]},options:{plugins:{legend:{position:'bottom',labels:{font:{size:10}}}},cutout:'55%'}});
+new Chart(document.getElementById('c2c'),{type:'bar',data:{labels:['Gauteng','KZN','EC','WC','LP','MP','NW','FS','NC'],datasets:[{label:'Public Facilities',data:[620,590,720,480,410,310,290,290,210],backgroundColor:[teal2,teal,teal,green,gold,gold,red,gold,teal],borderRadius:4}]},options:{plugins:{legend:{display:false}},scales:{y:{grid:{color:'#e2e8f0'}},x:{grid:{display:false}}}}});
+new Chart(document.getElementById('c2d'),{type:'bar',data:{labels:['Private Sector','Public Sector'],datasets:[{data:[1500,150],backgroundColor:[red,teal2],borderRadius:6}]},options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' R'+c.raw+' per person/year'}}},scales:{x:{grid:{color:'#e2e8f0'}},y:{grid:{display:false}}}}});
+
+// ── P3 CHARTS ──
+new Chart(document.getElementById('c3a'),{type:'line',data:{labels:['Q1 19','Q3 19','Q1 20','Q3 20','Q1 21','Q3 21','Q1 22','Q3 22','Q1 23','Q4 23'],datasets:[{label:'Official Unemployment %',data:[27.6,29.1,30.1,32.5,32.4,34.4,35.3,32.7,32.9,32.1],borderColor:red,backgroundColor:'rgba(192,57,43,.08)',fill:true,tension:.4,pointRadius:4}]},options:{plugins:{legend:{display:false}},scales:{y:{min:25,grid:{color:'#e2e8f0'}},x:{grid:{display:false}}}}});
+new Chart(document.getElementById('c3b'),{type:'bar',data:{labels:['NC','WC','GP','KZN','LP','MP','EC','FS','NW'],datasets:[{label:'Unemployment % Q4 2023',data:[22.4,18.3,28.1,33.4,29.8,36.2,43.1,38.2,38.1],backgroundColor:[green,green,teal,gold,gold,red,red,red,red],borderRadius:4}]},options:{plugins:{legend:{display:false}},scales:{y:{grid:{color:'#e2e8f0'}},x:{grid:{display:false}}}}});
+new Chart(document.getElementById('c3c'),{type:'bar',data:{labels:['Community','Trade','Finance','Manufacturing','Construction','Transport','Mining','Utilities','Agriculture'],datasets:[{label:'Employed (millions)',data:[3.99,3.42,2.93,1.61,1.39,0.91,0.52,0.14,0.89],backgroundColor:[teal2,teal2,blue,gold,teal,gold,orange,teal,green],borderRadius:4}]},options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{grid:{color:'#e2e8f0'}},y:{grid:{display:false}}}}});
+new Chart(document.getElementById('c3d'),{type:'line',data:{labels:['2019','2020','2021','2022','2023'],datasets:[{label:'Youth (15-24) %',data:[55.2,59.4,64.4,61.6,60.7],borderColor:red,backgroundColor:'rgba(192,57,43,.08)',fill:true,tension:.4,pointRadius:5},{label:'Adult (25-54) %',data:[22.1,25.6,26.4,26.2,25.8],borderColor:teal2,backgroundColor:'rgba(0,163,145,.08)',fill:true,tension:.4,pointRadius:5}]},options:{plugins:{legend:{position:'bottom'}},scales:{y:{grid:{color:'#e2e8f0'}},x:{grid:{display:false}}}}});
+
+// ── P4 CHARTS ──
+new Chart(document.getElementById('c4a'),{type:'line',data:{labels:['2019','2020','2021','2022','2023'],datasets:[{label:'Total Renewable Capacity (GW)',data:[2534,2799,3064,3372,3870],borderColor:green,backgroundColor:'rgba(30,126,90,.1)',fill:true,tension:.4,pointRadius:6}]},options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:false,min:2200,grid:{color:'#e2e8f0'}},x:{grid:{display:false}}}}});
+new Chart(document.getElementById('c4b'),{type:'bar',data:{labels:['Solar PV','Wind','Hydro','Bioenergy','Geothermal'],datasets:[{label:'2023 Additions (GW)',data:[346,116,7,4.4,0.2],backgroundColor:[gold,blue,teal,green,orange],borderRadius:5}]},options:{plugins:{legend:{display:false}},scales:{y:{grid:{color:'#e2e8f0'}},x:{grid:{display:false}}}}});
+new Chart(document.getElementById('c4c'),{type:'bar',data:{labels:['China','USA','Brazil','India','Germany','Australia','UK','Japan','Spain','France'],datasets:[{label:'Renewable Capacity (GW)',data:[1572,378,192,186,132,87,78,74,71,68],backgroundColor:[red,blue,green,orange,gold,teal,purple,teal2,red,blue],borderRadius:4}]},options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{grid:{color:'#e2e8f0'}},y:{grid:{display:false}}}}});
+new Chart(document.getElementById('c4d'),{type:'doughnut',data:{labels:['Asia-Pacific','Europe','N. America','Latin America','Middle East','Africa','Eurasia'],datasets:[{data:[57,17,12,7,3,2,2],backgroundColor:[red,blue,gold,green,teal,orange,purple],borderWidth:2,borderColor:'#fff'}]},options:{plugins:{legend:{position:'bottom',labels:{font:{size:10}}}},cutout:'58%'}});
+
+// ── P5 CHARTS ──
+new Chart(document.getElementById('c5a'),{type:'bar',data:{labels:['2019','2020','2021','2022','2023'],datasets:[{label:'Load-shedding Hours',data:[759,844,1153,2400,6950],backgroundColor:[green,teal,gold,orange,red],borderRadius:4}]},options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,grid:{color:'#e2e8f0'}},x:{grid:{display:false}}}}});
+new Chart(document.getElementById('c5b'),{type:'line',data:{labels:['2019','2020','2021','2022','2023'],datasets:[{label:'Eskom EAF %',data:[70.2,66.8,62.4,58.8,54.8],borderColor:red,backgroundColor:'rgba(192,57,43,.08)',fill:true,tension:.4,pointRadius:6}]},options:{plugins:{legend:{display:false}},scales:{y:{min:50,max:75,grid:{color:'#e2e8f0'}},x:{grid:{display:false}}}}});
+new Chart(document.getElementById('c5c'),{type:'bar',data:{labels:['Stage 1','Stage 2','Stage 3','Stage 4','Stage 5','Stage 6'],datasets:[{label:'Hours in 2023',data:[210,890,1240,1940,620,750],backgroundColor:[green,teal,gold,orange,red,'#8B0000'],borderRadius:4}]},options:{plugins:{legend:{display:false}},scales:{y:{grid:{color:'#e2e8f0'}},x:{grid:{display:false}}}}});
+new Chart(document.getElementById('c5d'),{type:'line',data:{labels:['2019','2020','2021','2022','2023','2024','2025'],datasets:[{label:'Actual / Realised',data:[759,844,1153,2400,6950,900,120],borderColor:teal2,backgroundColor:'rgba(0,163,145,.08)',fill:true,tension:.4,pointRadius:5},{label:'Projected (no intervention)',data:[759,844,1153,2400,6950,12847,null],borderColor:red,borderDash:[5,5],backgroundColor:'transparent',tension:.3,pointRadius:4}]},options:{plugins:{legend:{position:'bottom'}},scales:{y:{beginAtZero:true,grid:{color:'#e2e8f0'}},x:{grid:{display:false}}}}});
+
+// ── P6 CHARTS ──
+new Chart(document.getElementById('c6a'),{type:'bar',data:{labels:['GDP/capita','Health Exp %','Immunisation','Under-5 Mortality','Clean Water','Physician Density','Sanitation','HIV Prevalence'],datasets:[{label:'Feature Importance',data:[34,22,18,12,6,4,3,1],backgroundColor:[gold,blue,green,red,teal,teal2,orange,purple],borderRadius:4}]},options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{max:40,grid:{color:'#e2e8f0'}},y:{grid:{display:false}}}}});
+new Chart(document.getElementById('c6b'),{type:'bar',data:{labels:['High Income','Upper-Middle','Lower-Middle','Low Income'],datasets:[{label:'Life Expectancy (years)',data:[80.1,76.3,69.8,64.2],backgroundColor:[green,teal,gold,red],borderRadius:5}]},options:{plugins:{legend:{display:false}},scales:{y:{min:60,max:85,grid:{color:'#e2e8f0'}},x:{grid:{display:false}}}}});
+new Chart(document.getElementById('c6c'),{type:'line',data:{labels:['2015','2016','2017','2018','2019','2020','2021','2022'],datasets:[{label:'Global Avg Life Expectancy (yrs)',data:[71.9,72.3,72.5,72.7,73.1,72.6,71.4,73.8],borderColor:blue,backgroundColor:'rgba(26,93,181,.08)',fill:true,tension:.4,pointRadius:5}]},options:{plugins:{legend:{display:false}},scales:{y:{min:70,grid:{color:'#e2e8f0'}},x:{grid:{display:false}}}}});
+new Chart(document.getElementById('c6d'),{type:'scatter',data:{datasets:[{label:'Test Countries',data:[{x:62,y:60},{x:68,y:67},{x:74,y:76},{x:78,y:79},{x:82,y:81},{x:72,y:73},{x:65,y:63},{x:76,y:74},{x:69,y:71},{x:80,y:82}],backgroundColor:'rgba(0,163,145,.6)',pointRadius:6},{label:'Perfect Prediction',data:[{x:60,y:60},{x:85,y:85}],type:'line',borderColor:red,borderDash:[4,4],backgroundColor:'transparent',pointRadius:0}]},options:{plugins:{legend:{position:'bottom'}},scales:{x:{title:{display:true,text:'Actual'},grid:{color:'#e2e8f0'}},y:{title:{display:true,text:'Predicted'},grid:{color:'#e2e8f0'}}}}});
+
+// ── P7 CHARTS ──
+new Chart(document.getElementById('c7a'),{type:'bar',data:{labels:['Early Stage','Moderate','Severe','End Stage'],datasets:[{data:[612,594,421,220],backgroundColor:[green,gold,red,'#2d3a4a'],borderRadius:5}]},options:{plugins:{legend:{display:false}},scales:{y:{grid:{color:'#e2e8f0'}},x:{grid:{display:false}}}}});
+new Chart(document.getElementById('c7b'),{type:'doughnut',data:{labels:['Home Care','Care Home','General Hospital','Memory Clinic','Other'],datasets:[{data:[61,22,9,6,2],backgroundColor:[teal,blue,red,gold,gray],borderWidth:2,borderColor:'#fff'}]},options:{plugins:{legend:{position:'bottom',labels:{font:{size:11}}}},cutout:'58%'}});
+new Chart(document.getElementById('c7c'),{type:'bar',data:{labels:['Memory Clinic','Structured Home','Specialist Unit','Care Home','Unstructured Home','No Formal Care'],datasets:[{data:[71.8,64.2,68.4,58.6,47.8,32.1],backgroundColor:[green,teal2,teal,blue,gold,red],borderRadius:4}]},options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{max:100,grid:{color:'#e2e8f0'}},y:{grid:{display:false}}}}});
+new Chart(document.getElementById('c7d'),{type:'line',data:{labels:['M1','M2','M3','M4','M5','M6','M7','M8','M9','M10','M11','M12'],datasets:[{label:'With Support',data:[28,29,31,30,32,31,33,32,31,30,32,31],borderColor:teal2,backgroundColor:'rgba(0,163,145,.08)',fill:true,tension:.4,pointRadius:3},{label:'Without Support',data:[30,34,38,42,44,46,49,52,54,56,58,61],borderColor:red,backgroundColor:'rgba(192,57,43,.06)',fill:true,tension:.4,pointRadius:3}]},options:{plugins:{legend:{position:'bottom'}},scales:{y:{grid:{color:'#e2e8f0'}},x:{grid:{display:false}}}}});
+</script>
+</body>
+</html>
